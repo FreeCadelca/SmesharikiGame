@@ -1,20 +1,14 @@
 import sys
-
 import pygame
 import moviepy.editor
+from screen_data import *
 from menu import Menu
-
-vertical_tile_number = 14
-tile_size = 64
-
-screen_height = vertical_tile_number * tile_size
-screen_width = 1600
 
 
 class Game:
     def __init__(self, status='menu'):
         self.status = status
-        self.menu = Menu()
+        self.menu = Menu(screen)
 
     def run(self):
         if self.status == 'menu':
@@ -25,10 +19,11 @@ class Game:
         #     self.ui.show_coins(self.coins)
         #     self.check_game_over()
 
+
 pygame.init()
-video = moviepy.editor.VideoFileClip("source\\preview.mp4")
-video.preview()
-pygame.quit()
+# video = moviepy.editor.VideoFileClip("source\\preview.mp4")
+# video.preview()
+# pygame.quit()
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 game = Game()
@@ -42,5 +37,10 @@ while True:
     screen.fill('grey')
     game.run()
 
+    for e in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONUP:
+            # if event.button == 1:
+            print(event.pos)
+    
     pygame.display.update()
     clock.tick(60)

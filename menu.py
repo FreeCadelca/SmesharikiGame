@@ -12,23 +12,15 @@ class DefaultBar(pygame.sprite.Sprite):
         self.name = name
         self.pos = pos
         self.image = pygame.image.load('source\\' + path)
-        # self.image = pygame.Surface((50, 50))
-        # self.image.fill((100, 100, 100))
         self.rect = self.image.get_rect(center=pos)
 
     def update(self):
         self.rect.center = self.pos
         # print("hello")
 
-    def clickCheck(self, pos):
-        if self.rect.left < pos[0] < self.rect.right and self.rect.top < pos[1] < self.rect.bottom:
-            return True
-        else:
-            return False
-
 
 class Menu:
-    BARS_MAIN_MENU = ['Play', 'Skins', 'Settings', 'About ass']
+    BARS_MAIN_MENU = ['Play', 'Account', 'Settings', 'About ass']
 
     def __init__(self, surface):
         self.bars_sprites = None
@@ -36,35 +28,45 @@ class Menu:
         self.current_bar = 0
         self.max_bar = 4
         self.current_section = 0
-        self.last_key = None
         self.clickableBars = []
+        self.last_pressed_keys = {
+            pygame.K_UP: False,
+            pygame.K_DOWN: False,
+            pygame.K_LEFT: False,
+            pygame.K_RIGHT: False,
+            pygame.K_RETURN: False
+        }
+
+    def input_main_menu(self, keys):
+        pass
+
+    def input_account(self, keys):
+        pass
+
+    def input_settings(self, keys):
+        pass
+
+    def input_about_ass(self, keys):
+        pass
 
     def input(self):
+        # inputs = [self.input_main_menu, ]
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_DOWN] and self.last_key != 'd':
+        if keys[pygame.K_DOWN] and not self.last_pressed_keys[pygame.K_DOWN]:
             self.current_bar = (self.current_bar + 1) % self.max_bar
-            self.last_key = 'd'
+            self.last_pressed_keys[pygame.K_DOWN] = True
             return 0
-        elif keys[pygame.K_UP] and self.last_key != 'u':
+        elif keys[pygame.K_UP] and not self.last_pressed_keys[pygame.K_UP]:
             self.current_bar = (self.current_bar - 1) % self.max_bar
-            self.last_key = 'u'
+            self.last_pressed_keys[pygame.K_UP] = True
             return 0
-        elif keys[pygame.K_RETURN] and self.last_key != 'r':
-            print(Menu.BARS_MAIN_MENU[self.current_bar])
-            self.last_key = 'r'
+        elif keys[pygame.K_RETURN] and not self.last_pressed_keys[pygame.K_RETURN]:
+            self.current_section = self.current_bar
+            self.last_pressed_keys[pygame.K_RETURN] = True
             return 0
-        if not keys[pygame.K_DOWN] and not keys[pygame.K_UP] and not keys[pygame.K_RETURN]:
-            self.last_key = None
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONUP:
-                for bar in self.clickableBars:
-                    if bar.clickCheck(event.pos):
-                        print(bar.name)
-                        for i in range(len(Menu.BARS_MAIN_MENU)):
-                            if Menu.BARS_MAIN_MENU[i] == bar.name:
-                                self.current_bar = i
-                                break
-
+        for i in (pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_RETURN):
+            if not keys[i]:
+                self.last_pressed_keys[i] = False
 
     def setup_bars_main_menu(self):
         self.bars_sprites = pygame.sprite.Group()
@@ -91,7 +93,7 @@ class Menu:
         # for i in self.bars_sprites:
         #     print(i.rect.center, end='; ')
 
-    def setup_bars_skins(self):
+    def setup_bars_account(self):
         pass
 
     def setup_bars_settings(self):
@@ -102,7 +104,7 @@ class Menu:
 
     def setup_bars(self):
         setups = [self.setup_bars_main_menu,
-                  self.setup_bars_skins,
+                  self.setup_bars_account,
                   self.setup_bars_settings,
                   self.setup_bars_about_ass]
         setups[self.current_section]()

@@ -36,11 +36,6 @@ while True:
 
     screen.fill('grey')
     game.run()
-
-    for e in pygame.event.get():
-        if event.type == pygame.MOUSEBUTTONUP:
-            # if event.button == 1:
-            print(event.pos)
     
     pygame.display.update()
     clock.tick(60)

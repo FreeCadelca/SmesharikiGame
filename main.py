@@ -2,7 +2,7 @@ import sys
 import pygame
 import moviepy.editor
 from screen_data import *
-from menu import Menu
+from menu.menu import Menu
 
 
 class Game:

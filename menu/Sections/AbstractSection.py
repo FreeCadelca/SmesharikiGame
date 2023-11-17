@@ -10,8 +10,9 @@ class AbstractSection:
     def __init__(self):
         self.max_bars = None
         self.current_bar = 0
+        self.bars = []
 
-    def input(self, keys, last_pressed_keys, current_section):
+    def input(self, keys, last_pressed_keys, id_current_section, events):
         # each section has input() func for handling keys
         # Two of actions can be written the same for all sections - it is a moving of current bar.
         # After that remaining keys should be written separately for each section

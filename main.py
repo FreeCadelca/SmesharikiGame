@@ -10,9 +10,9 @@ class Game:
         self.status = status
         self.menu = Menu(screen)
 
-    def run(self):
+    def run(self, events):
         if self.status == 'menu':
-            self.menu.run()
+            self.menu.run(events)
         # else:
         #     self.level.run()
         #     self.ui.show_health(self.cur_health, self.max_health)
@@ -29,13 +29,14 @@ clock = pygame.time.Clock()
 game = Game()
 
 while True:
-    for event in pygame.event.get():
+    events = pygame.event.get()
+    for event in events:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
     screen.fill('grey')
-    game.run()
+    game.run(events)
     
     pygame.display.update()
     clock.tick(60)

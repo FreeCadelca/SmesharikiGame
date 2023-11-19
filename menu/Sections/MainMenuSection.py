@@ -1,6 +1,7 @@
 import pygame
 from ..Bars.DefaultBar import DefaultBar
 from ..Bars.IncrementBar import IncrementBar
+from ..Bars.LabelBar import LabelBar
 from .AbstractSection import AbstractSection
 
 from screen_data import *
@@ -16,12 +17,12 @@ class MainMenuSection(AbstractSection):
         for i in range(len(MainMenuSection.BARS_MAIN_MENU)):
             offset = (i - len(MainMenuSection.BARS_MAIN_MENU) // 2) * DefaultBar.BAR_HEIGHT
             # offset relative other bars
-            spacing = 20 * (i - len(MainMenuSection.BARS_MAIN_MENU) // 2)
+            spacing = 10 * (i - len(MainMenuSection.BARS_MAIN_MENU) // 2)
             # spacing between bars
-            new_bar = DefaultBar(
+            new_bar = LabelBar(
                 MainMenuSection.BARS_MAIN_MENU[i],
                 (screen_width // 2, screen_height // 2 + (offset + spacing)),
-                'menu\\MainMenu\\' + MainMenuSection.BARS_MAIN_MENU[i] + '.png')
+                MainMenuSection.BARS_MAIN_MENU[i])
             self.bars.append(new_bar)
 
     def input(self, keys, last_pressed_keys, id_current_section, events):
@@ -48,7 +49,7 @@ class MainMenuSection(AbstractSection):
         for i in self.bars:
             bars_sprites.add(i)
         offset_of_current_bar = ((self.current_bar - len(MainMenuSection.BARS_MAIN_MENU) // 2) * DefaultBar.BAR_HEIGHT +
-                                 20 * (self.current_bar - len(MainMenuSection.BARS_MAIN_MENU) // 2))
+                                 10 * (self.current_bar - len(MainMenuSection.BARS_MAIN_MENU) // 2))
         current_bar_sprite = DefaultBar(
             'selected',
             (screen_width // 2, screen_height // 2 + offset_of_current_bar),

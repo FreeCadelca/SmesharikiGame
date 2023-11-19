@@ -35,7 +35,7 @@ while True:
             pygame.quit()
             sys.exit()
 
-    screen.fill('grey')
+    screen.fill('black')
     game.run(events)
     
     pygame.display.update()

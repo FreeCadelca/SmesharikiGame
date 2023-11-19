@@ -14,4 +14,3 @@ class DefaultBar(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.center = self.pos
-        # print("hello")

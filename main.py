@@ -1,15 +1,21 @@
 import pygame, sys
 from settings import *
-import cv2
-import moviepy.editor
+from level import Level
 
-class Game:
-    def __init__(self):
-        self.screen = pygame.display.set_mode([screen_width, screen_height])
+#Pygame setup
+pygame.init()
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
-game = Game()
-video = moviepy.editor.VideoFileClip("../SmesharikiGame/source/preview.mp4")
-intro = video.resize((screen_width, screen_height))
-intro.preview()
+level = Level(level_map, screen)
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    screen.fill('black')
+    level.run()
+    pygame.display.update()
+    clock.tick(60)

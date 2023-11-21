@@ -23,5 +23,5 @@ class AboutAssSection(AbstractSection):
                 last_pressed_keys[i] = False
         return id_current_section
 
-    def setup_bars(self, bars_sprites):
-        super().setup_bars(bars_sprites)
+    def setup_bars(self, bars_sprites, cfg):
+        super().setup_bars(bars_sprites, cfg)

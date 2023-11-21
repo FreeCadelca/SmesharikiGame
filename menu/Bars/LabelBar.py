@@ -6,7 +6,7 @@ class LabelBar(DefaultBar):
     BAR_HEIGHT = 75
     BAR_WIDTH = 500
 
-    def __init__(self, name, pos, text, text_offset_x=0):
+    def __init__(self, name: str, pos, text: str, text_offset_x: int = 0):
         super().__init__(name, pos, 'menu\\DefaultBar.png')
         self.text = text
         self.text_offset_x = text_offset_x

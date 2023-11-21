@@ -35,7 +35,7 @@ scancodes = {
     37: '8',
     38: '9',
     39: '0',
-    44: 'SPACE',
+    44: 'space',
     45: '-',
     46: '=',
     47: '[',
@@ -47,8 +47,8 @@ scancodes = {
     54: ',',
     55: '.',
     56: '/',
-    79: 'RIGHT',
-    80: 'LEFT',
-    81: 'DOWN',
-    82: 'UP'
+    79: 'rightarrow',
+    80: 'leftarrow',
+    81: 'downarrow',
+    82: 'uparrow'
 }

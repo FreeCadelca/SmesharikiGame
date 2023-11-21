@@ -4,55 +4,59 @@ from ..Bars.IncrementBar import IncrementBar
 from .AbstractSection import AbstractSection
 from ..Bars.LabelBar import LabelBar
 
-
 from screen_data import *
 from key_scancodes import *
-from configParse import *
+from config import *
+from name_to_str_key import *
+from str_to_name_key import *
 
 
 class SettingsSection(AbstractSection):
-    BARS_SETTINGS = ['Music volume', 'VFX volume', 'Left', 'Right', 'Jump']
-    BARS_SETTINGS_TYPE = [IncrementBar, IncrementBar, LabelBar, LabelBar, LabelBar]
+    BARS_SETTINGS = ['Music volume', 'VFX volume', 'Left', 'Right', 'Jump', 'Back']
+    BARS_SETTINGS_TYPE = [IncrementBar, IncrementBar, LabelBar, LabelBar, LabelBar, LabelBar]
 
     def __init__(self):
         super().__init__()
-        self.max_bars = 5
+        self.max_bars = 6
         self.state = 0  # 0 - default, 1,2,3 - choosing key for movement to the left, right, jump accordingly
-
-        # for i in range(len(SettingsSection.BARS_SETTINGS)):
-        #     offset = (i - len(SettingsSection.BARS_SETTINGS) // 2) * DefaultBar.BAR_HEIGHT
-        #     # offset relative other bars
-        #     spacing = 10 * (i - len(SettingsSection.BARS_SETTINGS) // 2)
-        #     # spacing between bars
-        #     new_bar = SettingsSection.BARS_SETTINGS_TYPE[i](
-        #         SettingsSection.BARS_SETTINGS[i],
-        #         (screen_width // 2, screen_height // 2 + (offset + spacing)),
-        #         # 'menu\\Settings\\' + SettingsSection.BARS_SETTINGS[i] + '.png')
-        #         'Menu\\DefaultBar.png')
-        #     self.bars.append(new_bar)
+        cfg = config_parse()
+        self.single_space = cfg['spacing']
         for i in range(2):
             offset = (i - len(SettingsSection.BARS_SETTINGS) // 2) * DefaultBar.BAR_HEIGHT
             # offset relative other bars
-            spacing = 10 * (i - len(SettingsSection.BARS_SETTINGS) // 2)
+            spacing = self.single_space * (i - len(SettingsSection.BARS_SETTINGS) // 2)
             # spacing between bars
             new_bar = IncrementBar(
                 SettingsSection.BARS_SETTINGS[i],
                 (screen_width // 2, screen_height // 2 + (offset + spacing)),
                 SettingsSection.BARS_SETTINGS[i] + ':',
-                50,
+                cfg[SettingsSection.BARS_SETTINGS[i]],
                 -IncrementBar.BAR_WIDTH * 0.08
             )
             self.bars.append(new_bar)
+        self.text_keys = [': ' + STR_TO_NAME_KEY[PYGAME_TO_STR_DICT[cfg['controls'][i]]] for i in cfg['controls']]
         for i in range(2, 5):
             offset = (i - len(SettingsSection.BARS_SETTINGS) // 2) * DefaultBar.BAR_HEIGHT
             # offset relative other bars
-            spacing = 10 * (i - len(SettingsSection.BARS_SETTINGS) // 2)
+            spacing = self.single_space * (i - len(SettingsSection.BARS_SETTINGS) // 2)
+            # spacing between bars
+            new_bar = LabelBar(
+                SettingsSection.BARS_SETTINGS[i],
+                (screen_width // 2, screen_height // 2 + (offset + spacing)),
+                SettingsSection.BARS_SETTINGS[i] + self.text_keys[i - 2],
+                0
+            )
+            self.bars.append(new_bar)
+        for i in range(5, 6):
+            offset = (i - len(SettingsSection.BARS_SETTINGS) // 2) * DefaultBar.BAR_HEIGHT
+            # offset relative other bars
+            spacing = self.single_space * (i - len(SettingsSection.BARS_SETTINGS) // 2)
             # spacing between bars
             new_bar = LabelBar(
                 SettingsSection.BARS_SETTINGS[i],
                 (screen_width // 2, screen_height // 2 + (offset + spacing)),
                 SettingsSection.BARS_SETTINGS[i],
-                -LabelBar.BAR_WIDTH * 0.25
+                0
             )
             self.bars.append(new_bar)
 
@@ -62,18 +66,22 @@ class SettingsSection(AbstractSection):
             if keys[pygame.K_RIGHT] and not last_pressed_keys[pygame.K_RIGHT]:
                 if SettingsSection.BARS_SETTINGS_TYPE[self.current_bar] == IncrementBar:
                     self.bars[self.current_bar].increment_value(5)
+                    config_edit([self.bars[self.current_bar].name], self.bars[self.current_bar].value)
                 last_pressed_keys[pygame.K_RIGHT] = True
             if keys[pygame.K_LEFT] and not last_pressed_keys[pygame.K_LEFT]:
                 if SettingsSection.BARS_SETTINGS_TYPE[self.current_bar] == IncrementBar:
                     self.bars[self.current_bar].increment_value(-5)
+                    config_edit([self.bars[self.current_bar].name], self.bars[self.current_bar].value)
                 last_pressed_keys[pygame.K_LEFT] = True
             if keys[pygame.K_ESCAPE] and not last_pressed_keys[pygame.K_ESCAPE]:
                 id_current_section = 0
-                print('esc')
                 last_pressed_keys[pygame.K_ESCAPE] = True
             if keys[pygame.K_RETURN] and not last_pressed_keys[pygame.K_RETURN]:
-                if SettingsSection.BARS_SETTINGS_TYPE[self.current_bar] == LabelBar:
+                if 1 < self.current_bar < 5:
                     self.state = self.current_bar - 1
+                    self.bars[self.state + 1].text = 'Enter new key or esc...'
+                else:
+                    id_current_section = 0
             for i in (pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_RETURN, pygame.K_ESCAPE):
                 # refreshing dict of last pressed keys
                 if not keys[i]:
@@ -83,12 +91,14 @@ class SettingsSection(AbstractSection):
             for event in events:
                 if event.type == pygame.KEYDOWN:
                     if event.scancode in scancodes.keys():
-                        print(
-                            f'move {SettingsSection.BARS_SETTINGS[self.state + 1]} on key: {scancodes[event.scancode]}'
+                        config_edit(
+                            ['controls', SettingsSection.BARS_SETTINGS[self.state + 1]],
+                            STR_TO_PYGAME_DICT[NAME_TO_STR_KEY[scancodes[event.scancode]]]
                         )
-                        #  replacing key in config (to finish)
+                        self.update_keys_text(config_parse())
                         self.state = 0
             if keys[pygame.K_ESCAPE] and not last_pressed_keys[pygame.K_ESCAPE]:
+                self.update_keys_text(config_parse())
                 self.state = 0
                 last_pressed_keys[pygame.K_ESCAPE] = True
             if keys[pygame.K_UP] and not last_pressed_keys[pygame.K_UP]:
@@ -101,15 +111,29 @@ class SettingsSection(AbstractSection):
                     last_pressed_keys[i] = False
             return id_current_section
 
-    def setup_bars(self, bars_sprites):
-        super().setup_bars(bars_sprites)
+    def setup_bars(self, bars_sprites, cfg):
+        super().setup_bars(bars_sprites, cfg)
+
         for i in self.bars:
             bars_sprites.add(i)
         offset_of_current_bar = ((self.current_bar - len(SettingsSection.BARS_SETTINGS) // 2) * DefaultBar.BAR_HEIGHT +
-                                 10 * (self.current_bar - len(SettingsSection.BARS_SETTINGS) // 2))
+                                 self.single_space * (self.current_bar - len(SettingsSection.BARS_SETTINGS) // 2))
         current_bar_sprite = DefaultBar(
             'selected',
             (screen_width // 2, screen_height // 2 + offset_of_current_bar),
             'menu\\Stroke.png'
         )
         bars_sprites.add(current_bar_sprite)
+
+    def update_keys_text(self, cfg):
+        for i in range(2, 5):
+            self.bars[i].text = (
+                    SettingsSection.BARS_SETTINGS[i] +
+                    ': ' +
+                    STR_TO_NAME_KEY[
+                        PYGAME_TO_STR_DICT[
+                            cfg['controls'][SettingsSection.BARS_SETTINGS[i]]
+                        ]
+                    ]
+            )
+

@@ -23,5 +23,5 @@ class AbstractSection:
             self.current_bar = (self.current_bar - 1) % self.max_bars
             last_pressed_keys[pygame.K_UP] = True
 
-    def setup_bars(self, bars_sprites):  # each section has setup_bars() func for drawing sprites
+    def setup_bars(self, bars_sprites, cfg):  # each section has setup_bars() func for drawing sprites
         pass

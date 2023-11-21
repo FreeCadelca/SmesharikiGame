@@ -1,7 +1,6 @@
 import pprint
 
-from convertStrToPygameConstant import *
-from convertPygameConstantToStr import *
+from pygame_dicts import *
 
 
 def config_parse():
@@ -16,8 +15,8 @@ def config_parse():
                 sub_dict_of_params = {}
                 current_line += 1
                 while lines[current_line] and current_line < len(lines):
-                    subParam = lines[current_line].split(' > ')
-                    sub_dict_of_params[subParam[0]] = STR_TO_PYGAME_DICT[subParam[1]]
+                    sub_param = lines[current_line].split(' > ')
+                    sub_dict_of_params[sub_param[0]] = STR_TO_PYGAME_CONSTANT[sub_param[1]]
                     current_line += 1
                 parsed_dict[line[0]] = sub_dict_of_params
         else:
@@ -40,7 +39,7 @@ def config_edit(field: list, value):
         else:
             new_cfg += i + ':\n'
             for j in cfg_dict[i]:
-                new_cfg += j + ' > ' + PYGAME_TO_STR_DICT[cfg_dict[i][j]] + '\n'
+                new_cfg += j + ' > ' + PYGAME_CONSTANT_TO_STR[cfg_dict[i][j]] + '\n'
             new_cfg += '\n'
     with open('config.cfg', mode='w') as cfg:
         cfg.write(new_cfg)

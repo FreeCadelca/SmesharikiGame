@@ -1,14 +1,10 @@
-import pygame
 from ..Bars.DefaultBar import DefaultBar
 from ..Bars.IncrementBar import IncrementBar
 from .AbstractSection import AbstractSection
 from ..Bars.LabelBar import LabelBar
 
 from screen_data import *
-from key_scancodes import *
 from config import *
-from name_to_str_key import *
-from str_to_name_key import *
 
 
 class SettingsSection(AbstractSection):
@@ -34,7 +30,7 @@ class SettingsSection(AbstractSection):
                 -IncrementBar.BAR_WIDTH * 0.08
             )
             self.bars.append(new_bar)
-        self.text_keys = [': ' + STR_TO_NAME_KEY[PYGAME_TO_STR_DICT[cfg['controls'][i]]] for i in cfg['controls']]
+        self.text_keys = [': ' + STR_TO_KEY_SIGN[PYGAME_CONSTANT_TO_STR[cfg['controls'][i]]] for i in cfg['controls']]
         for i in range(2, 5):
             offset = (i - len(SettingsSection.BARS_SETTINGS) // 2) * DefaultBar.BAR_HEIGHT
             # offset relative other bars
@@ -90,10 +86,12 @@ class SettingsSection(AbstractSection):
         else:
             for event in events:
                 if event.type == pygame.KEYDOWN:
-                    if event.scancode in scancodes.keys():
+                    if event.scancode in SCANCODES.keys():
+                        # if the key scancode is in the codes of our allowed keys, that is, in our list of scancodes
                         config_edit(
                             ['controls', SettingsSection.BARS_SETTINGS[self.state + 1]],
-                            STR_TO_PYGAME_DICT[NAME_TO_STR_KEY[scancodes[event.scancode]]]
+                            STR_TO_PYGAME_CONSTANT[KEY_SIGN_TO_STR[SCANCODES[event.scancode]]]
+                            # see the instructions in pygame_dicts.py. It explains how the line above works
                         )
                         self.update_keys_text(config_parse())
                         self.state = 0
@@ -130,10 +128,9 @@ class SettingsSection(AbstractSection):
             self.bars[i].text = (
                     SettingsSection.BARS_SETTINGS[i] +
                     ': ' +
-                    STR_TO_NAME_KEY[
-                        PYGAME_TO_STR_DICT[
+                    STR_TO_KEY_SIGN[
+                        PYGAME_CONSTANT_TO_STR[
                             cfg['controls'][SettingsSection.BARS_SETTINGS[i]]
                         ]
                     ]
             )
-

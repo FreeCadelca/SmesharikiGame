@@ -59,11 +59,12 @@ class Level:
                     player.rect.right = sprite.rect.left
                     player.on_right = True
                     self.current_x = player.rect.right
-# not nessesary (nn) - не вижу разницы
+        # not nessesary (nn) - не вижу разницы
         if player.on_left and (player.rect.left < self.current_x or player.direction.x >= 0):
             player.on_left = False
         if player.on_right and (player.rect.right < self.current_x or player.direction.x <= 0):
             player.on_right = False
+
     def vertical_movement_collision(self):
         player = self.player.sprite
         player.apply_gravity()
@@ -76,13 +77,12 @@ class Level:
                     player.on_ground = True
                 elif player.direction.y < 0:
                     player.rect.top = sprite.rect.bottom
-                    player.direction.y = 0 # чтобы персонаж не лип к потолку
+                    player.direction.y = 0  # чтобы персонаж не лип к потолку
                     player.on_ceiling = True
         if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
             player.on_ground = False
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
-
 
     def run(self):
         # блоки уровня
@@ -95,4 +95,4 @@ class Level:
         self.vertical_movement_collision()
         self.player.draw(self.display_surface)
 
-#даст не делаем, т к это запарно и бесполезно
+# даст не делаем, т к это запарно и бесполезно

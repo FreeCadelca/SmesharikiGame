@@ -25,7 +25,6 @@ class Player(pygame.sprite.Sprite):
         self.on_left = False
         self.on_right = False
 
-
     def import_character_assets(self):
         character_path = 'graphics/character/'
         self.animations = {'idle': [], 'run': [], 'jump': [], 'fall': []}
@@ -46,16 +45,16 @@ class Player(pygame.sprite.Sprite):
             flipped_image = pygame.transform.flip(image, True, False)
             self.image = flipped_image
 
-        #nn (т к не особо вижу разницы)- set the rect - фикчим баги, когда из-за разности между размерами изображений при анимации создаются разные по величине прямоуг-ки и персонаж ведет себя неестетсвенно
+        # nn (т к не особо вижу разницы)- set the rect - фикчим баги, когда из-за разности между размерами изображений при анимации создаются разные по величине прямоуг-ки и персонаж ведет себя неестетсвенно
         if self.on_ground and self.on_right:
-            self.rect = self.image.get_rect(bottomright = self.rect.bottomright)
+            self.rect = self.image.get_rect(bottomright=self.rect.bottomright)
         elif self.on_ground and self.on_left:
             self.rect = self.image.get_rect(bottomleft=self.rect.bottomleft)
         elif self.on_ground:
             self.rect = self.image.get_rect(midbottom=self.rect.midbottom)
 
         elif self.on_ceiling and self.on_right:
-            self.rect = self.image.get_rect(topright = self.rect.topright)
+            self.rect = self.image.get_rect(topright=self.rect.topright)
         elif self.on_ceiling and self.on_left:
             self.rect = self.image.get_rect(topleft=self.rect.topleft)
         elif self.on_ceiling:
@@ -85,7 +84,6 @@ class Player(pygame.sprite.Sprite):
                 self.status = 'run'
             else:
                 self.status = 'idle'
-
 
     # применение силы тяжести
     def apply_gravity(self):

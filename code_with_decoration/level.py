@@ -3,7 +3,7 @@ from support import import_csv_layout, import_cut_graphics
 from settings import tile_size, screen_height
 from tiles import StaticTile, Coin, Tile
 from enemy import Enemy
-from decoration import Sky, Lava
+from decoration import Sky, Lava, Clouds
 
 
 class Level:
@@ -42,7 +42,8 @@ class Level:
         # decoration
         self.sky = Sky(8)
         level_width = len(ground_layout[0]) * tile_size
-        self.lava = Lava(screen_height - 20, level_width)
+        self.lava = Lava(screen_height - 30, level_width)
+        self.clouds = Clouds(400, level_width, 20)
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()
@@ -53,17 +54,17 @@ class Level:
                     y = row_index * tile_size
 
                     if type == 'ground':
-                        groud_tile_list = import_cut_graphics('./graphics/tiles/cracked_ground.png')
+                        groud_tile_list = import_cut_graphics('../graphics/tiles/cracked_ground.png')
                         tile_surface = groud_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
 
                     if type == 'flying_rocks':
-                        flying_rocks_tile_list = import_cut_graphics('./graphics/tiles/flying_rocks.png')
+                        flying_rocks_tile_list = import_cut_graphics('../graphics/tiles/flying_rocks.png')
                         tile_surface = flying_rocks_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
                     if type == 'coins':
-                        if val == '0': sprite = Coin(tile_size, x, y, './graphics/coins/gold')
-                        if val == '1': sprite = Coin(tile_size, x, y, './graphics/coins/silver')
+                        if val == '0': sprite = Coin(tile_size, x, y, '../graphics/coins/gold')
+                        if val == '1': sprite = Coin(tile_size, x, y, '../graphics/coins/silver')
                     if type == 'enemy':
                         sprite = Enemy(tile_size, x, y)
 
@@ -81,7 +82,7 @@ class Level:
                 if val == '0':
                     print('player goes here')
                 if val == '1':
-                    hat_surface = pygame.image.load('./graphics/character/hat.png').convert_alpha()
+                    hat_surface = pygame.image.load('../graphics/character/hat.png').convert_alpha()
                     sprite = StaticTile(tile_size, x, y, hat_surface)
                     self.goal.add(sprite)
 
@@ -93,6 +94,7 @@ class Level:
     def run(self):
         # decoration
         self.sky.draw(self.display_surface)
+        self.clouds.draw(self.display_surface, self.world_shift)
 
         self.ground_sprites.update(self.world_shift)
         self.ground_sprites.draw(self.display_surface)

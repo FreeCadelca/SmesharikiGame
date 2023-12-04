@@ -5,7 +5,7 @@ from random import randint
 
 class Enemy(AnimatedTiles):
     def __init__(self, size, x, y):
-        super().__init__(size, x, y, './graphics/enemy/run')
+        super().__init__(size, x, y, '../graphics/enemy/run')
         # приземлила на землю enemy
         self.rect.y += size - self.image.get_size()[1]
         self.speed = randint(3, 5)

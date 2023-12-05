@@ -1,22 +1,26 @@
 import pygame
 from support import import_csv_layout, import_cut_graphics
-from settings import tile_size, screen_height
+from settings import tile_size, screen_height, screen_width
 from tiles import StaticTile, Coin, Tile
 from enemy import Enemy
 from decoration import Sky, Lava, Clouds
+from player import Player
 
 
 class Level:
     def __init__(self, level_data, surface):
         # общая настройка
         self.display_surface = surface
-        self.world_shift = -6
+        self.world_shift = 0
+        self.current_x = None
 
         # player setup
         player_layout = import_csv_layout(level_data['player'])
         self.player = pygame.sprite.GroupSingle()
         self.goal = pygame.sprite.GroupSingle()
         self.player_setup(player_layout)
+
+        self.player_on_ground = False
 
         # настройка земной поверхности
         ground_layout = import_csv_layout(level_data['ground'])  # планировка местности
@@ -42,8 +46,8 @@ class Level:
         # decoration
         self.sky = Sky(8)
         level_width = len(ground_layout[0]) * tile_size
-        self.lava = Lava(screen_height - 30, level_width)
-        self.clouds = Clouds(400, level_width, 20)
+        self.lava = Lava(screen_height - 40, level_width)
+        self.clouds = Clouds(400, level_width, 30)
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()
@@ -80,7 +84,9 @@ class Level:
                 x = col_index * tile_size
                 y = row_index * tile_size
                 if val == '0':
-                    print('player goes here')
+                    sprite = Player((x, y), self.display_surface)
+                    self.player.add(sprite)
+
                 if val == '1':
                     hat_surface = pygame.image.load('../graphics/character/hat.png').convert_alpha()
                     sprite = StaticTile(tile_size, x, y, hat_surface)
@@ -90,6 +96,73 @@ class Level:
         for enemy in self.enemy_sprites.sprites():
             if pygame.sprite.spritecollide(enemy, self.constraint_sprites, False):
                 enemy.reverse()
+
+    def horizontal_movement_collision(self):
+        player = self.player.sprite
+        player.rect.x += player.direction.x * player.speed
+        # спрайты для столкновения
+        collidable_sprites = self.ground_sprites.sprites() + self.flying_rocks_sprites.sprites()
+        for sprite in collidable_sprites:
+            # столкновение игрока и блока
+            if sprite.rect.colliderect(player.rect):
+                if player.direction.x < 0:
+                    player.rect.left = sprite.rect.right
+                    player.on_left = True
+                    self.current_x = player.rect.left
+                elif player.direction.x > 0:
+                    player.rect.right = sprite.rect.left
+                    player.on_right = True
+                    self.current_x = player.rect.right
+        # not nessesary (nn) - не вижу разницы
+        if player.on_left and (player.rect.left < self.current_x or player.direction.x >= 0):
+            player.on_left = False
+        if player.on_right and (player.rect.right < self.current_x or player.direction.x <= 0):
+            player.on_right = False
+
+    def vertical_movement_collision(self):
+        player = self.player.sprite
+        player.apply_gravity()
+        # спрайты для столкновения
+        collidable_sprites = self.ground_sprites.sprites() + self.flying_rocks_sprites.sprites()
+        for sprite in collidable_sprites:
+            # столкновение игрока и блока
+            if sprite.rect.colliderect(player.rect):
+                if player.direction.y > 0:
+                    player.rect.bottom = sprite.rect.top
+                    player.direction.y = 0  # установили, чтобы персонаж не падал вниз в статичном состоянии под силой тяжести
+                    player.on_ground = True
+                elif player.direction.y < 0:
+                    player.rect.top = sprite.rect.bottom
+                    player.direction.y = 0  # чтобы персонаж не лип к потолку
+                    player.on_ceiling = True
+        if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
+            player.on_ground = False
+        if player.on_ceiling and player.direction.y > 0:
+            player.on_ceiling = False
+
+    # камера
+    def scroll_x(self):
+        player = self.player.sprite
+        # нахождение игрока по координате Х
+        player_x = player.rect.centerx
+        # направление движения игрока
+        direction_x = player.direction.x
+
+        if player_x < screen_width / 4 and direction_x < 0:
+            self.world_shift = 8
+            player.speed = 0
+        elif player_x > screen_width - (screen_width / 4) and direction_x > 0:
+            self.world_shift = -8
+            player.speed = 0
+        else:
+            self.world_shift = 0
+            player.speed = 8
+
+    def get_player_on_ground(self):
+        if self.player.sprite.on_ground:
+            self.player_on_ground = True
+        else:
+            self.player_on_ground = False
 
     def run(self):
         # decoration
@@ -114,6 +187,12 @@ class Level:
         self.coins_sprites.draw(self.display_surface)
 
         # player sprites
+        self.player.update()
+        self.horizontal_movement_collision()
+        self.get_player_on_ground()
+        self.vertical_movement_collision()
+        self.scroll_x()
+        self.player.draw(self.display_surface)
         self.goal.update(self.world_shift)
         self.goal.draw(self.display_surface)
 

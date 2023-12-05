@@ -31,7 +31,7 @@ class Lava:
     def __init__(self, top, level_width):
         lava_start = -screen_width
         lava_tile_width = 180
-        tile_x_amount = int((level_width + screen_width) / lava_tile_width)
+        tile_x_amount = int((level_width + screen_width * 2) / lava_tile_width)
         self.lava_sprites = pygame.sprite.Group()
 
         for tile in range(tile_x_amount):

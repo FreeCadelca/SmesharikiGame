@@ -26,7 +26,7 @@ class AnimatedTiles(Tile):
         self.image = self.frames[self.frame_index]
 
     def animate(self):
-        self.frame_index += 0.1
+        self.frame_index += 0.15
         if self.frame_index >= len(self.frames):
             self.frame_index = 0
         self.image = self.frames[int(self.frame_index)]

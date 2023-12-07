@@ -5,14 +5,21 @@ from tiles import StaticTile, Coin, Tile
 from enemy import Enemy
 from decoration import Sky, Lava, Clouds
 from player import Player
+from game_data import levels
 
 
 class Level:
-    def __init__(self, level_data, surface):
+    def __init__(self, current_level, surface, create_overworld):
         # общая настройка
         self.display_surface = surface
         self.world_shift = 0
         self.current_x = None
+
+        # связь с overworld
+        self.create_overworld = create_overworld
+        self.current_level = current_level
+        level_data = levels[self.current_level]
+        self.new_max_level = level_data['unlock']
 
         # player setup
         player_layout = import_csv_layout(level_data['player'])
@@ -164,6 +171,15 @@ class Level:
         else:
             self.player_on_ground = False
 
+    def check_death(self):
+        # игрок упал с платформы и ушёл под экран
+        if self.player.sprite.rect.top > screen_height:
+            self.create_overworld(self.current_level, 0)
+
+    def check_win(self):
+        if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
+            self.create_overworld(self.current_level, self.new_max_level)
+
     def run(self):
         # decoration
         self.sky.draw(self.display_surface)
@@ -195,6 +211,9 @@ class Level:
         self.player.draw(self.display_surface)
         self.goal.update(self.world_shift)
         self.goal.draw(self.display_surface)
+
+        self.check_death()
+        self.check_win()
 
         # lava
         self.lava.draw(self.display_surface, self.world_shift)

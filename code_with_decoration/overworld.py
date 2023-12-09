@@ -21,7 +21,7 @@ class Node(pygame.sprite.Sprite):
                                           icon_speed, icon_speed)
 
     def animate(self):
-        self.frame_index += 0.15
+        self.frame_index += 0.1
         if self.frame_index >= len(self.frames):
             self.frame_index = 0
         self.image = self.frames[int(self.frame_index)]
@@ -40,7 +40,7 @@ class Icon(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
         self.pos = pos
-        self.image = pygame.image.load('../graphics/overworld/hat.png')
+        self.image = pygame.image.load('./graphics/overworld/hat.png')
         self.rect = self.image.get_rect(center=pos)
 
     def update(self):

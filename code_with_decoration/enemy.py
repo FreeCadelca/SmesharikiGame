@@ -5,7 +5,7 @@ from random import randint
 
 class Enemy(AnimatedTiles):
     def __init__(self, size, x, y):
-        super().__init__(size, x, y, '../graphics/enemy/run')
+        super().__init__(size, x, y, './graphics/enemy/run')
         # приземлила на землю enemy
         self.rect.y += size - self.image.get_size()[1]
         self.speed = randint(3, 5)
@@ -16,6 +16,7 @@ class Enemy(AnimatedTiles):
     def reverse_image(self):
         if self.speed > 0:
             self.image = pygame.transform.flip(self.image, True, False)
+
     def reverse(self):
         self.speed *= -1
 
@@ -24,4 +25,3 @@ class Enemy(AnimatedTiles):
         self.animate()
         self.move()
         self.reverse_image()
-

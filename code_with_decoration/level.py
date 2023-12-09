@@ -6,10 +6,10 @@ from enemy import Enemy
 from decoration import Sky, Lava, Clouds
 from player import Player
 from game_data import levels
-
+from particles import ParticEffect
 
 class Level:
-    def __init__(self, current_level, surface, create_overworld):
+    def __init__(self, current_level, surface, create_overworld, change_coins, change_health):
         # общая настройка
         self.display_surface = surface
         self.world_shift = 0
@@ -25,9 +25,15 @@ class Level:
         player_layout = import_csv_layout(level_data['player'])
         self.player = pygame.sprite.GroupSingle()
         self.goal = pygame.sprite.GroupSingle()
-        self.player_setup(player_layout)
-
+        self.player_setup(player_layout, change_health)
         self.player_on_ground = False
+
+
+        #user interface
+        self.change_coins = change_coins
+
+        # explosion particles
+        self.explosion_sprites = pygame.sprite.Group()
 
         # настройка земной поверхности
         ground_layout = import_csv_layout(level_data['ground'])  # планировка местности
@@ -65,17 +71,17 @@ class Level:
                     y = row_index * tile_size
 
                     if type == 'ground':
-                        groud_tile_list = import_cut_graphics('../graphics/tiles/cracked_ground.png')
+                        groud_tile_list = import_cut_graphics('./graphics/tiles/cracked_ground.png')
                         tile_surface = groud_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
 
                     if type == 'flying_rocks':
-                        flying_rocks_tile_list = import_cut_graphics('../graphics/tiles/flying_rocks.png')
+                        flying_rocks_tile_list = import_cut_graphics('./graphics/tiles/flying_rocks.png')
                         tile_surface = flying_rocks_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
                     if type == 'coins':
-                        if val == '0': sprite = Coin(tile_size, x, y, '../graphics/coins/gold')
-                        if val == '1': sprite = Coin(tile_size, x, y, '../graphics/coins/silver')
+                        if val == '0': sprite = Coin(tile_size, x, y, './graphics/coins/gold', 5)
+                        if val == '1': sprite = Coin(tile_size, x, y, './graphics/coins/silver', 1)
                     if type == 'enemy':
                         sprite = Enemy(tile_size, x, y)
 
@@ -85,17 +91,17 @@ class Level:
                     sprite_group.add(sprite)
         return sprite_group
 
-    def player_setup(self, layout):
+    def player_setup(self, layout, change_health):
         for row_index, row in enumerate(layout):
             for col_index, val in enumerate(row):
                 x = col_index * tile_size
                 y = row_index * tile_size
                 if val == '0':
-                    sprite = Player((x, y), self.display_surface)
+                    sprite = Player((x, y), self.display_surface, change_health)
                     self.player.add(sprite)
 
                 if val == '1':
-                    hat_surface = pygame.image.load('../graphics/character/hat.png').convert_alpha()
+                    hat_surface = pygame.image.load('./graphics/character/hat.png').convert_alpha()
                     sprite = StaticTile(tile_size, x, y, hat_surface)
                     self.goal.add(sprite)
 
@@ -180,6 +186,29 @@ class Level:
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.create_overworld(self.current_level, self.new_max_level)
 
+    def chack_coin_collisions(self):
+        collided_coins = pygame.sprite.spritecollide(self.player.sprite, self.coins_sprites, True)
+        if collided_coins:
+            for coin in collided_coins:
+                self.change_coins(coin.value)
+
+
+    def check_enemy_collisions(self):
+        enemy_collisions = pygame.sprite.spritecollide(self.player.sprite, self.enemy_sprites, False)
+
+        if enemy_collisions:
+            for enemy in enemy_collisions:
+                enemy_center = enemy.rect.centery
+                enemy_top = enemy.rect.top
+                player_bottom = self.player.sprite.rect.bottom
+                if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:
+                    enemy.kill()
+                    self.player.sprite.direction.y = -15
+                    explosion_sprite = ParticEffect(enemy.rect.center, 'explosion')
+                    self.explosion_sprites.add(explosion_sprite)
+                else:
+                    self.player.sprite.get_damage()
+
     def run(self):
         # decoration
         self.sky.draw(self.display_surface)
@@ -197,7 +226,8 @@ class Level:
         self.constraint_sprites.update(self.world_shift)
         self.enemy_collision_reverse()
         self.enemy_sprites.draw(self.display_surface)
-
+        self.explosion_sprites.update(self.world_shift)
+        self.explosion_sprites.draw(self.display_surface)
         # coins
         self.coins_sprites.update(self.world_shift)
         self.coins_sprites.draw(self.display_surface)
@@ -214,6 +244,8 @@ class Level:
 
         self.check_death()
         self.check_win()
-
+        self.chack_coin_collisions()
+        self.check_enemy_collisions()
         # lava
         self.lava.draw(self.display_surface, self.world_shift)
+

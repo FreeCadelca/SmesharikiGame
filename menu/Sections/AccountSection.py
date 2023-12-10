@@ -7,7 +7,7 @@ from screen_data import *
 
 
 class AccountSection(AbstractSection):
-    BARS_ACCOUNT = ['Log in', 'Sign in', 'Log out']
+    BARS_ACCOUNT = ['Log in', 'Sign in', 'Log out', 'View leaderboard', 'Exit']
 
     def __init__(self):
         super().__init__()

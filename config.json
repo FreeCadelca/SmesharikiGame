@@ -7,5 +7,7 @@
         "Jump": "K_SPACE"
     },
     "spacing": 5,
-    "font": "bamew-bamew-thin-200.ttf"
+    "font": "bamew-bamew-thin-200.ttf",
+    "coins": 0,
+    "current_user": "guest"
 }

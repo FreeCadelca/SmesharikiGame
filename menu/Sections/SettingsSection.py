@@ -30,7 +30,7 @@ class SettingsSection(AbstractSection):
                 -IncrementBar.BAR_WIDTH * 0.08
             )
             self.bars.append(new_bar)
-        self.text_keys = [': ' + STR_TO_KEY_SIGN[PYGAME_CONSTANT_TO_STR[cfg['controls'][i]]] for i in cfg['controls']]
+        self.text_keys = [': ' + STR_TO_KEY_SIGN[cfg['controls'][i]] for i in cfg['controls']]
         for i in range(2, 5):
             offset = (i - len(SettingsSection.BARS_SETTINGS) // 2) * DefaultBar.BAR_HEIGHT
             # offset relative other bars
@@ -90,7 +90,7 @@ class SettingsSection(AbstractSection):
                         # if the key scancode is in the codes of our allowed keys, that is, in our list of scancodes
                         config_edit(
                             ['controls', SettingsSection.BARS_SETTINGS[self.state + 1]],
-                            STR_TO_PYGAME_CONSTANT[KEY_SIGN_TO_STR[SCANCODES[event.scancode]]]
+                            KEY_SIGN_TO_STR[SCANCODES[event.scancode]]
                             # see the instructions in pygame_dicts.py. It explains how the line above works
                         )
                         self.update_keys_text(config_parse())
@@ -129,8 +129,6 @@ class SettingsSection(AbstractSection):
                     SettingsSection.BARS_SETTINGS[i] +
                     ': ' +
                     STR_TO_KEY_SIGN[
-                        PYGAME_CONSTANT_TO_STR[
-                            cfg['controls'][SettingsSection.BARS_SETTINGS[i]]
-                        ]
+                        cfg['controls'][SettingsSection.BARS_SETTINGS[i]]
                     ]
             )

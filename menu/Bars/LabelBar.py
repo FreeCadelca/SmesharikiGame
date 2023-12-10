@@ -1,4 +1,6 @@
 import pygame
+
+from config import config_parse
 from .DefaultBar import DefaultBar
 
 
@@ -16,7 +18,7 @@ class LabelBar(DefaultBar):
     def update(self):
         self.image = self.primary_image.copy()
         pygame.font.init()
-        my_font = pygame.font.Font('source\\ARCADEPI.TTF', 30)
+        my_font = pygame.font.Font('source\\' + config_parse()["font"], 30)
         text_surface = my_font.render(
             self.text,
             False,

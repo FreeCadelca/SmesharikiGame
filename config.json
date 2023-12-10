@@ -1,0 +1,11 @@
+{
+    "Music volume": 50,
+    "VFX volume": 50,
+    "controls": {
+        "Left": "K_LEFT",
+        "Right": "K_RIGHT",
+        "Jump": "K_SPACE"
+    },
+    "spacing": 5,
+    "font": "bamew-bamew-thin-200.ttf"
+}

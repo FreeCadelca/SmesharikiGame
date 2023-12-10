@@ -1,4 +1,6 @@
 import pygame
+
+from config import config_parse
 from .DefaultBar import DefaultBar
 
 
@@ -15,7 +17,7 @@ class IncrementBar(DefaultBar):
         self.rect = self.image.get_rect(center=pos)
 
         pygame.font.init()
-        my_font = pygame.font.Font('source\\ARCADEPI.TTF', 30)
+        my_font = pygame.font.Font('source\\' + config_parse()["font"], 30)
         text_surface = my_font.render(
             self.text,
             False,
@@ -32,7 +34,7 @@ class IncrementBar(DefaultBar):
     def update(self):
         self.image = self.primary_image.copy()  # resetting the image to a state without rendering a number
         pygame.font.init()
-        my_font = pygame.font.Font('source\\ARCADEPI.TTF', 30)
+        my_font = pygame.font.Font('source\\' + config_parse()["font"], 30)
 
         value_surface = my_font.render(
             str(self.value),

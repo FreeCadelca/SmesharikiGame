@@ -54,7 +54,7 @@ class MainMenuSection(AbstractSection):
         current_bar_sprite = DefaultBar(
             'selected',
             (screen_width // 2, screen_height // 2 + offset_of_current_bar),
-            'menu\\Stroke.png'
+            'menu\\Stroke_700px.png'
         )
         bars_sprites.add(current_bar_sprite)
         # for i in self.bars_sprites:

@@ -3,7 +3,7 @@ import pygame
 
 class DefaultBar(pygame.sprite.Sprite):
     BAR_HEIGHT = 75
-    BAR_WIDTH = 500
+    BAR_WIDTH = 700
 
     def __init__(self, name, pos, path):
         super().__init__()

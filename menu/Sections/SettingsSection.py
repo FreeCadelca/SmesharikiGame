@@ -75,9 +75,10 @@ class SettingsSection(AbstractSection):
             if keys[pygame.K_RETURN] and not last_pressed_keys[pygame.K_RETURN]:
                 if 1 < self.current_bar < 5:
                     self.state = self.current_bar - 1
-                    self.bars[self.state + 1].text = 'Enter new key or esc...'
+                    self.bars[self.state + 1].text = 'Enter a new key... Press Esc to cancel'
                 else:
                     id_current_section = 0
+                    last_pressed_keys[pygame.K_RETURN] = True
             for i in (pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_RETURN, pygame.K_ESCAPE):
                 # refreshing dict of last pressed keys
                 if not keys[i]:
@@ -119,7 +120,7 @@ class SettingsSection(AbstractSection):
         current_bar_sprite = DefaultBar(
             'selected',
             (screen_width // 2, screen_height // 2 + offset_of_current_bar),
-            'menu\\Stroke.png'
+            'menu\\Stroke_700px.png'
         )
         bars_sprites.add(current_bar_sprite)
 

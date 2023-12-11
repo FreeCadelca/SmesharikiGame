@@ -3,6 +3,7 @@ import pygame
 import moviepy.editor
 from screen_data import *
 from menu.menu import Menu
+from socket import *
 
 
 class Game:
@@ -27,6 +28,15 @@ pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 game = Game()
+
+#
+# # a client part
+# client = socket(
+#     AF_INET, SOCK_STREAM
+# )
+# client.connect(
+#     ('127.0.0.1', 5000)
+# )
 
 while True:
     events = pygame.event.get()

@@ -6,10 +6,10 @@ from .DefaultBar import DefaultBar
 
 class IncrementBar(DefaultBar):
     BAR_HEIGHT = 75
-    BAR_WIDTH = 500
+    BAR_WIDTH = 700
 
     def __init__(self, name, pos, text, value=50, text_offset_x=0):
-        super().__init__(name, pos, 'menu\\IncrementBar.png')
+        super().__init__(name, pos, 'menu\\IncrementBar_700px.png')
         self.text_offset_x = text_offset_x
         self.text = text
         self.value = value

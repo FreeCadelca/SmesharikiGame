@@ -1,21 +1,33 @@
+from unittest.mock import Mock
+
 import pygame
 
 from .Sections.MainMenuSection import MainMenuSection
 from .Sections.AccountSection import AccountSection
 from .Sections.SettingsSection import SettingsSection
 from .Sections.AboutAssSection import AboutAssSection
+from .Sections.LogInSection import LogInSection
+from .Sections.SignInSection import SignInSection
 
 from screen_data import *
 from config import *
 
 
 class Menu:
-    SECTIONS = [MainMenuSection, AccountSection, SettingsSection, AboutAssSection]
+    SECTIONS = [MainMenuSection, AccountSection, SettingsSection, AboutAssSection, LogInSection, SignInSection]
 
     def __init__(self, surface):
         self.bars_sprites = None
         self.surface = surface
         self.id_current_section = 0
+        """
+        0: main_menu
+        1: account
+        2: settings
+        3: about us
+        4: log in
+        5: sign in
+        """
         self.last_pressed_keys = {
             pygame.K_UP: False,
             pygame.K_DOWN: False,

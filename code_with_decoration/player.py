@@ -2,6 +2,7 @@ import pygame
 from support import import_folder
 from math import sin
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, surface, change_health):
         super().__init__()
@@ -31,6 +32,12 @@ class Player(pygame.sprite.Sprite):
         self.invincible = False
         self.invincibility_duration = 700
         self.hurt_time = 0
+
+        # audio
+        self.jump_sound = pygame.mixer.Sound('./audio/effects/jump.wav')
+        self.jump_sound.set_volume(0.25)
+        self.hit_sound = pygame.mixer.Sound('./audio/effects/hit.wav')
+
     def import_character_assets(self):
         character_path = './graphics/character/'
         self.animations = {'idle': [], 'run': [], 'jump': [], 'fall': []}
@@ -102,6 +109,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.direction.y
 
     def jump(self):
+        self.jump_sound.play()
         self.direction.y = self.jump_speed
 
     def get_damage(self):
@@ -109,6 +117,7 @@ class Player(pygame.sprite.Sprite):
             self.change_health(-10)
             self.invincible = True
             self.hurt_time = pygame.time.get_ticks()
+            self.hit_sound.play()
 
     def invincibility_timer(self):
         if self.invincible:
@@ -118,8 +127,10 @@ class Player(pygame.sprite.Sprite):
 
     def wave_value(self):
         value = sin(pygame.time.get_ticks())
-        if value >= 0: return 255
-        else: return 0
+        if value >= 0:
+            return 255
+        else:
+            return 0
 
     def update(self):
         self.get_input()
@@ -127,5 +138,3 @@ class Player(pygame.sprite.Sprite):
         self.animate()
         self.invincibility_timer()
         self.wave_value()
-
-

@@ -15,6 +15,12 @@ class Level:
         self.world_shift = 0
         self.current_x = None
 
+        # audio
+        self.coin_sound = pygame.mixer.Sound('./audio/effects/coin.wav')
+        self.coin_sound.set_volume(0.25)
+        self.stomp_sound = pygame.mixer.Sound('./audio/effects/stomp.wav')
+        self.stomp_sound.set_volume(0.25)
+
         # связь с overworld
         self.create_overworld = create_overworld
         self.current_level = current_level
@@ -189,6 +195,7 @@ class Level:
     def chack_coin_collisions(self):
         collided_coins = pygame.sprite.spritecollide(self.player.sprite, self.coins_sprites, True)
         if collided_coins:
+            self.coin_sound.play()
             for coin in collided_coins:
                 self.change_coins(coin.value)
 
@@ -202,6 +209,7 @@ class Level:
                 enemy_top = enemy.rect.top
                 player_bottom = self.player.sprite.rect.bottom
                 if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:
+                    self.stomp_sound.play()
                     enemy.kill()
                     self.player.sprite.direction.y = -15
                     explosion_sprite = ParticEffect(enemy.rect.center, 'explosion')

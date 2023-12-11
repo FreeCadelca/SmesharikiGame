@@ -3,6 +3,7 @@ from settings import *
 from level import Level
 from overworld import Overworld
 from ui import UI
+import moviepy.editor
 
 class Game:
     def __init__(self):
@@ -70,10 +71,15 @@ class Game:
             self.check_game_over()
 
 # Pygame setup
+
 pygame.init()
+
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 game = Game()
+video = moviepy.editor.VideoFileClip("./intro.mp4")
+intro = video.resize((screen_width, screen_height))
+intro.preview()
 
 while True:
     for event in pygame.event.get():

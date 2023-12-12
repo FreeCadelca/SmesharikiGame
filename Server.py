@@ -2,8 +2,6 @@ import json
 import socket
 import sqlite3
 
-from config import *
-
 
 class Server:
     def __init__(self, ip: str, port: int, database_name: str = "DatabaseOfAccounts.sqlite3"):
@@ -32,7 +30,10 @@ class Server:
             except Exception as e:
                 is_work = False
             if len(data) > 0:
-                msg = data.decode('utf-8')
+                data = json.loads(data.decode('utf-8'))
+                print(f'The request has been got:\n\t{data}')
+                msg = data['msg']
+                cfg = json.loads(data['cfg'])
                 if msg == "disconnect":
                     self.sender(user, 'You are disconnected')
                     user.close()
@@ -55,8 +56,8 @@ class Server:
                                     "insert into Accounts (Login, Hashed_password, Coins) values (?, ?, ?)",
                                     (new_login, new_hashed_password, 0,)
                                 )
-                                config_edit(["current_user"], new_login)
-                                config_edit(["coins"], 0)
+                                cfg["current_user"] = new_login
+                                cfg["coins"] = 0
                                 connection.commit()
                                 cursor.close()
                                 to_send['answer'] = 'successfully added new account'
@@ -81,8 +82,8 @@ class Server:
                                 row = result[0]
                                 if row[1] == hashed_password:
                                     to_send['answer'] = 'successfully logged in the account'
-                                    config_edit(["current_user"], login)
-                                    config_edit(["coins"], row[2])
+                                    cfg["current_user"] = login
+                                    cfg["coins"] = row[2]
                                 else:
                                     to_send['answer'] = 'failed logged in, wrong password'
                             else:
@@ -90,7 +91,6 @@ class Server:
                         except Exception as e:
                             to_send['error'] = str(e)
                     elif msg == 'UpdateCoins':
-                        cfg = config_parse()
                         if cfg["current_user"] != "guest":
                             connection = sqlite3.connect(self.database_name)
                             cursor = connection.cursor()
@@ -100,9 +100,11 @@ class Server:
                             )
                     else:
                         to_send['error'] = 'there is no such command'
+                    to_send['cfg'] = cfg
                     self.sender(user, json.dumps(to_send))
+                    print(f'The response has been sent:\n\t{to_send}')
             else:
-                print("Client disconnected")
+                print("Client disconnected\n")
                 is_work = False
 
 

@@ -13,14 +13,14 @@ class AccountSection(AbstractSection):
     def __init__(self):
         super().__init__()
         cfg = config_parse()
-        self.variety_bars = ["Account: " + cfg["current_user"]]
+        self.variety_bars = ["Account: " + cfg["current_user"], "Coins: " + str(cfg["coins"])]
         if cfg["current_user"] == "guest":
             self.variety_bars += ['Log in', 'Sign in', 'Back']
         else:
             self.variety_bars += ['Log out', 'Back']
         self.max_bars = len(self.variety_bars)
         self.single_space = cfg['spacing']
-        for i in range(1):
+        for i in range(2):
             offset = (i - len(self.variety_bars) // 2) * DefaultBar.BAR_HEIGHT
             # offset relative other bars
             spacing = self.single_space * (i - len(self.variety_bars) // 2)
@@ -33,7 +33,7 @@ class AccountSection(AbstractSection):
                 font_size=36
             )
             self.bars.append(new_bar)
-        for i in range(1, len(self.variety_bars)):
+        for i in range(2, len(self.variety_bars)):
             offset = (i - len(self.variety_bars) // 2) * DefaultBar.BAR_HEIGHT
             # offset relative other bars
             spacing = self.single_space * (i - len(self.variety_bars) // 2)

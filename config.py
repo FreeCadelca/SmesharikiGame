@@ -18,3 +18,8 @@ def config_edit(field: list, value):
 
     with open('config.json', mode="w") as cfg:
         cfg.write(json.dumps(cfg_dict, indent=4))
+
+
+def replace_config(new_config: dict):
+    with open('config.json', mode="w") as cfg:
+        cfg.write(json.dumps(new_config, indent=4))

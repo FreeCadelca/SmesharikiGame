@@ -70,15 +70,21 @@ class SignInSection(AbstractSection):
                         self.bars[self.current_bar].font_size = 28
                     self.state_of_entering_text = self.current_bar + 1
                     last_pressed_keys[pygame.K_RETURN] = True
-                elif self.current_bar == 3:
+                elif self.current_bar == 3:  # trying sign in
                     if self.typing_text[0] and self.typing_text[1] and self.typing_text[2]:
                         if self.typing_text[1] != self.typing_text[2]:
                             self.debug_line = 'Passwords are not the same'
                         else:
                             response = client.request_to_server(
-                                f'SignIn {self.typing_text[0]} {my_hash(self.typing_text[1])}'
+                                json.dumps(
+                                    {
+                                        'msg': f'SignIn {self.typing_text[0]} {my_hash(self.typing_text[1])}',
+                                        'cfg': json.dumps(config_parse())
+                                    }
+                                )
                             )
                             if 'successfully' in response['answer']:
+                                replace_config(response['cfg'])
                                 id_current_section = 1
                             else:
                                 if response['answer']:

@@ -1,6 +1,7 @@
 import pygame
 from support import import_folder
 from math import sin
+from create_path_on_platform import *
 
 
 class Player(pygame.sprite.Sprite):
@@ -34,12 +35,12 @@ class Player(pygame.sprite.Sprite):
         self.hurt_time = 0
 
         # audio
-        self.jump_sound = pygame.mixer.Sound('./audio/effects/jump.wav')
+        self.jump_sound = pygame.mixer.Sound(create_path_on_platform('./audio/effects/jump.wav'))
         self.jump_sound.set_volume(0.25)
-        self.hit_sound = pygame.mixer.Sound('./audio/effects/hit.wav')
+        self.hit_sound = pygame.mixer.Sound(create_path_on_platform('./audio/effects/hit.wav'))
 
     def import_character_assets(self):
-        character_path = './graphics/character/'
+        character_path = create_path_on_platform('./graphics/character/')
         self.animations = {'idle': [], 'run': [], 'jump': [], 'fall': []}
         for animation in self.animations.keys():
             full_path = character_path + animation

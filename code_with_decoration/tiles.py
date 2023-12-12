@@ -1,5 +1,6 @@
 import pygame
 from support import import_folder
+from create_path_on_platform import *
 
 
 class Tile(pygame.sprite.Sprite):
@@ -30,13 +31,16 @@ class AnimatedTiles(Tile):
         if self.frame_index >= len(self.frames):
             self.frame_index = 0
         self.image = self.frames[int(self.frame_index)]
+
     def update(self, shift):
         self.animate()
         self.rect.x += shift
+
+
 class Coin(AnimatedTiles):
     def __init__(self, size, x, y, path, value):
         super().__init__(size, x, y, path)
-        center_x = x + int(size/2)
-        center_y = y + int(size/2)
-        self.rect = self.image.get_rect(center = (center_x, center_y))
+        center_x = x + int(size / 2)
+        center_y = y + int(size / 2)
+        self.rect = self.image.get_rect(center=(center_x, center_y))
         self.value = value

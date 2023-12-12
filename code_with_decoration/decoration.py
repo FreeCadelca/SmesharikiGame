@@ -3,11 +3,13 @@ import pygame
 from tiles import AnimatedTiles, StaticTile
 from support import import_folder
 from random import choice, randint
+from create_path_on_platform import *
+
 
 
 class Sky:
     def __init__(self, horizon):
-        self.top = pygame.image.load('./graphics/tiles/Sky.png').convert()
+        self.top = pygame.image.load(create_path_on_platform('./graphics/tiles/Sky.png')).convert()
         # self.middle = pygame.image.load('./graphics/tiles/sky_middle.png').convert()
         # self.bottom = pygame.image.load('./graphics/tiles/sky_bottom.png').convert()
         self.horizon = horizon
@@ -37,7 +39,7 @@ class Lava:
         for tile in range(tile_x_amount):
             x = tile * lava_tile_width + lava_start
             y = top
-            sprite = AnimatedTiles(192, x, y, './graphics/tiles/lava')
+            sprite = AnimatedTiles(192, x, y, create_path_on_platform('./graphics/tiles/lava'))
             self.lava_sprites.add(sprite)
 
     def draw(self, surface, shift):
@@ -47,7 +49,7 @@ class Lava:
 
 class Clouds:
     def __init__(self, horizon, level_width, cloud_number):
-        cloud_surf_list = import_folder('./graphics/tiles/clouds')
+        cloud_surf_list = import_folder(create_path_on_platform('./graphics/tiles/clouds'))
         min_x = -screen_width
         max_x = level_width + screen_width
         min_y = 0

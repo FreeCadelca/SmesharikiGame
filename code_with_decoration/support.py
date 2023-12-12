@@ -1,6 +1,8 @@
 from csv import reader
 
 import pygame
+
+from create_path_on_platform import *
 from settings import tile_size
 from os import walk
 
@@ -16,6 +18,7 @@ def import_folder(path):
 
 
 def import_csv_layout(path):
+    path = create_path_on_platform(path)
     ground_map = []
     with open(path) as map:
         level = reader(map, delimiter=',')
@@ -25,6 +28,7 @@ def import_csv_layout(path):
 
 
 def import_cut_graphics(path):
+    path = create_path_on_platform(path)
     surface = pygame.image.load(path).convert_alpha()
     tile_num_x = int(surface.get_size()[0] / tile_size)
     tile_num_y = int(surface.get_size()[1] / tile_size)

@@ -1,6 +1,7 @@
 import pygame
 from support import import_csv_layout, import_cut_graphics
 from settings import tile_size, screen_height, screen_width
+from create_path_on_platform import *
 from tiles import StaticTile, Coin, Tile
 from enemy import Enemy
 from decoration import Sky, Lava, Clouds
@@ -16,9 +17,9 @@ class Level:
         self.current_x = None
 
         # audio
-        self.coin_sound = pygame.mixer.Sound('./audio/effects/coin.wav')
+        self.coin_sound = pygame.mixer.Sound(create_path_on_platform('./audio/effects/coin.wav'))
         self.coin_sound.set_volume(0.25)
-        self.stomp_sound = pygame.mixer.Sound('./audio/effects/stomp.wav')
+        self.stomp_sound = pygame.mixer.Sound(create_path_on_platform('./audio/effects/stomp.wav'))
         self.stomp_sound.set_volume(0.25)
 
         # связь с overworld
@@ -77,17 +78,25 @@ class Level:
                     y = row_index * tile_size
 
                     if type == 'ground':
-                        groud_tile_list = import_cut_graphics('./graphics/tiles/cracked_ground.png')
+                        groud_tile_list = import_cut_graphics(
+                            create_path_on_platform('./graphics/tiles/cracked_ground.png')
+                        )
                         tile_surface = groud_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
 
                     if type == 'flying_rocks':
-                        flying_rocks_tile_list = import_cut_graphics('./graphics/tiles/flying_rocks.png')
+                        flying_rocks_tile_list = import_cut_graphics(
+                            create_path_on_platform('./graphics/tiles/flying_rocks.png')
+                        )
                         tile_surface = flying_rocks_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
                     if type == 'coins':
-                        if val == '0': sprite = Coin(tile_size, x, y, './graphics/coins/gold', 5)
-                        if val == '1': sprite = Coin(tile_size, x, y, './graphics/coins/silver', 1)
+                        if val == '0': sprite = Coin(
+                            tile_size, x, y, create_path_on_platform('./graphics/coins/gold'), 5
+                        )
+                        if val == '1': sprite = Coin(
+                            tile_size, x, y, create_path_on_platform('./graphics/coins/silver'), 1
+                        )
                     if type == 'enemy':
                         sprite = Enemy(tile_size, x, y)
 
@@ -107,7 +116,8 @@ class Level:
                     self.player.add(sprite)
 
                 if val == '1':
-                    hat_surface = pygame.image.load('./graphics/character/hat.png').convert_alpha()
+                    hat_surface = (pygame.image.load(create_path_on_platform('./graphics/character/hat.png'))
+                                   .convert_alpha())
                     sprite = StaticTile(tile_size, x, y, hat_surface)
                     self.goal.add(sprite)
 

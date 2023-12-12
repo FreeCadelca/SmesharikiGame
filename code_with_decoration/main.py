@@ -1,5 +1,6 @@
 import pygame, sys
 from settings import *
+from create_path_on_platform import *
 from level import Level
 from overworld import Overworld
 from ui import UI
@@ -14,9 +15,9 @@ class Game:
         self.coins = 0
 
         # audio
-        self.level_music = pygame.mixer.Sound('./audio/level_music.wav')
+        self.level_music = pygame.mixer.Sound(create_path_on_platform('./audio/level_music.wav'))
         #
-        self.overworld_music = pygame.mixer.Sound('./audio/overworld_music.wav')
+        self.overworld_music = pygame.mixer.Sound(create_path_on_platform('./audio/overworld_music.wav'))
         #
 
         # метод запуска overworld creation
@@ -77,9 +78,10 @@ pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 game = Game()
-video = moviepy.editor.VideoFileClip("./intro.mp4")
-intro = video.resize((screen_width, screen_height))
-intro.preview()
+# video = moviepy.editor.VideoFileClip(create_path_on_platform("./intro.mp4"))
+# intro = video.resize((screen_width, screen_height))
+# intro.preview()
+
 
 while True:
     for event in pygame.event.get():

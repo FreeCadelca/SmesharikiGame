@@ -2,6 +2,7 @@ import pygame
 from support import import_folder
 from create_path_on_platform import *
 
+
 class ParticEffect(pygame.sprite.Sprite):
     def __init__(self, pos, type):
         super().__init__()
@@ -10,7 +11,7 @@ class ParticEffect(pygame.sprite.Sprite):
         if type == 'explosion':
             self.frames = import_folder(create_path_on_platform('./graphics/enemy/explosion'))
         self.image = self.frames[self.frame_index]
-        self.rect = self.image.get_rect(center = pos)
+        self.rect = self.image.get_rect(center=pos)
 
     def animate(self):
         self.frame_index += self.animation_speed
@@ -21,4 +22,4 @@ class ParticEffect(pygame.sprite.Sprite):
 
     def update(self, x_shift):
         self.animate()
-        self.rect.x +=x_shift
+        self.rect.x += x_shift

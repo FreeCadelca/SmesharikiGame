@@ -72,7 +72,6 @@ class Overworld:
         self.allow_input = False
         self.timer_lengh = 1000
 
-
     def setup_nodes(self):
         self.nodes = pygame.sprite.Group()
 

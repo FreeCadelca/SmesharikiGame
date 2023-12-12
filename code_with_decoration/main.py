@@ -6,6 +6,7 @@ from overworld import Overworld
 from ui import UI
 import moviepy.editor
 
+
 class Game:
     def __init__(self):
         # game attributes
@@ -16,9 +17,7 @@ class Game:
 
         # audio
         self.level_music = pygame.mixer.Sound(create_path_on_platform('./audio/level_music.wav'))
-        #
         self.overworld_music = pygame.mixer.Sound(create_path_on_platform('./audio/overworld_music.wav'))
-        #
 
         # метод запуска overworld creation
         self.overworld = Overworld(1, self.max_level, screen, self.create_level)
@@ -29,8 +28,6 @@ class Game:
 
         # user interface
         self.ui = UI(screen)
-
-
 
     def create_level(self, current_level):
         self.level = Level(current_level, screen, self.create_overworld, self.change_coins, self.change_health)
@@ -47,7 +44,6 @@ class Game:
         self.level_music.stop()
         self.overworld_music.play(-1)
         self.overworld_music.set_volume(-0.5)
-
 
     def change_coins(self, amount):
         self.coins += amount
@@ -71,6 +67,7 @@ class Game:
             self.ui.show_coins(self.coins)
             self.check_game_over()
 
+
 # Pygame setup
 
 pygame.init()
@@ -78,9 +75,9 @@ pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 game = Game()
-# video = moviepy.editor.VideoFileClip(create_path_on_platform("./intro.mp4"))
-# intro = video.resize((screen_width, screen_height))
-# intro.preview()
+video = moviepy.editor.VideoFileClip(create_path_on_platform("./intro.mp4"))
+intro = video.resize((screen_width, screen_height))
+intro.preview()
 
 
 while True:

@@ -9,6 +9,7 @@ from player import Player
 from game_data import levels
 from particles import ParticEffect
 
+
 class Level:
     def __init__(self, current_level, surface, create_overworld, change_coins, change_health):
         # общая настройка
@@ -35,8 +36,7 @@ class Level:
         self.player_setup(player_layout, change_health)
         self.player_on_ground = False
 
-
-        #user interface
+        # user interface
         self.change_coins = change_coins
 
         # explosion particles
@@ -209,7 +209,6 @@ class Level:
             for coin in collided_coins:
                 self.change_coins(coin.value)
 
-
     def check_enemy_collisions(self):
         enemy_collisions = pygame.sprite.spritecollide(self.player.sprite, self.enemy_sprites, False)
 
@@ -266,4 +265,3 @@ class Level:
         self.check_enemy_collisions()
         # lava
         self.lava.draw(self.display_surface, self.world_shift)
-

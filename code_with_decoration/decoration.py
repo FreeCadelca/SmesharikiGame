@@ -6,7 +6,6 @@ from random import choice, randint
 from create_path_on_platform import *
 
 
-
 class Sky:
     def __init__(self, horizon):
         self.top = pygame.image.load(create_path_on_platform('./graphics/tiles/Sky.png')).convert()

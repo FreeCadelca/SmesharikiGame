@@ -9,8 +9,8 @@ class LabelBar(DefaultBar):
     BAR_WIDTH = 700
 
     def __init__(self, name: str, pos, text: str, text_offset_x: int = 0, text_color: tuple = (255, 240, 0),
-                 font_size: int = 30):
-        super().__init__(name, pos, 'menu\\DefaultBar_700px.png')
+                 font_size: int = 26):
+        super().__init__(name, pos, 'DefaultBar_700px.png')
         self.text = text
         self.text_offset_x = text_offset_x
         self.rect = self.image.get_rect(center=pos)
@@ -21,7 +21,7 @@ class LabelBar(DefaultBar):
     def update(self):
         self.image = self.primary_image.copy()
         pygame.font.init()
-        my_font = pygame.font.Font('source\\' + config_parse()["font"], self.font_size)
+        my_font = pygame.font.Font('ui\\' + config_parse()["font"], self.font_size)
         text_surface = my_font.render(
             self.text,
             False,

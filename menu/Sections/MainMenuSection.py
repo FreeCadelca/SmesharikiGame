@@ -9,7 +9,7 @@ from config import *
 
 
 class MainMenuSection(AbstractSection):
-    BARS_MAIN_MENU = ['Play', 'Account', 'Settings', 'About ass']
+    BARS_MAIN_MENU = ['Play', 'Account', 'Settings', 'About us']
 
     def __init__(self):
         super().__init__()
@@ -28,8 +28,8 @@ class MainMenuSection(AbstractSection):
                 MainMenuSection.BARS_MAIN_MENU[i])
             self.bars.append(new_bar)
 
-    def input(self, keys, last_pressed_keys, id_current_section, events):
-        super().input(keys, last_pressed_keys, id_current_section, events)
+    def input(self, keys, last_pressed_keys, id_current_section, events, client):
+        super().input(keys, last_pressed_keys, id_current_section, events, client)
         if keys[pygame.K_RETURN] and not last_pressed_keys[pygame.K_RETURN]:
             id_current_section = self.current_bar
             last_pressed_keys[pygame.K_RETURN] = True
@@ -54,8 +54,6 @@ class MainMenuSection(AbstractSection):
         current_bar_sprite = DefaultBar(
             'selected',
             (screen_width // 2, screen_height // 2 + offset_of_current_bar),
-            'menu\\Stroke_700px.png'
+            'Stroke_700px.png'
         )
         bars_sprites.add(current_bar_sprite)
-        # for i in self.bars_sprites:
-        #     print(i.rect.center, end='; ')

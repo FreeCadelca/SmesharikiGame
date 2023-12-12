@@ -3,7 +3,7 @@ import pygame
 import moviepy.editor
 from screen_data import *
 from menu.menu import Menu
-from socket import *
+from Client import *
 
 
 class Game:
@@ -11,9 +11,9 @@ class Game:
         self.status = status
         self.menu = Menu(screen)
 
-    def run(self, events):
+    def run(self, events, client: Client):
         if self.status == 'menu':
-            self.menu.run(events)
+            self.menu.run(events, client)
         # else:
         #     self.level.run()
         #     self.ui.show_health(self.cur_health, self.max_health)
@@ -22,21 +22,14 @@ class Game:
 
 
 pygame.init()
-# video = moviepy.editor.VideoFileClip("source\\preview.mp4")
+# video = moviepy.editor.VideoFileClip("ui\\preview.mp4")
 # video.preview()
 # pygame.quit()
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 game = Game()
 
-#
-# # a client part
-# client = socket(
-#     AF_INET, SOCK_STREAM
-# )
-# client.connect(
-#     ('127.0.0.1', 5000)
-# )
+client = Client('127.0.0.1', 4444)
 
 while True:
     events = pygame.event.get()
@@ -46,7 +39,7 @@ while True:
             sys.exit()
 
     screen.fill('white')
-    game.run(events)
+    game.run(events, client)
 
     pygame.display.update()
     clock.tick(60)

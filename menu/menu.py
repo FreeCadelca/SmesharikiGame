@@ -5,16 +5,17 @@ import pygame
 from .Sections.MainMenuSection import MainMenuSection
 from .Sections.AccountSection import AccountSection
 from .Sections.SettingsSection import SettingsSection
-from .Sections.AboutAssSection import AboutAssSection
+from .Sections.AboutUsSection import AboutUsSection
 from .Sections.LogInSection import LogInSection
 from .Sections.SignInSection import SignInSection
 
 from screen_data import *
 from config import *
+from Client import *
 
 
 class Menu:
-    SECTIONS = [MainMenuSection, AccountSection, SettingsSection, AboutAssSection, LogInSection, SignInSection]
+    SECTIONS = [MainMenuSection, AccountSection, SettingsSection, AboutUsSection, LogInSection, SignInSection]
 
     def __init__(self, surface):
         self.bars_sprites = None
@@ -38,10 +39,10 @@ class Menu:
         }
         self.section = MainMenuSection()
 
-    def input(self, events):
+    def input(self, events, client: Client):
         previous_section = self.id_current_section
-        self.id_current_section = self.section.input(pygame.key.get_pressed(), self.last_pressed_keys,
-                                                     self.id_current_section, events)
+        self.id_current_section = self.section.input(
+            pygame.key.get_pressed(), self.last_pressed_keys, self.id_current_section, events, client)
         if previous_section != self.id_current_section:
             self.section = Menu.SECTIONS[self.id_current_section]()
 
@@ -50,10 +51,8 @@ class Menu:
         self.bars_sprites = pygame.sprite.Group()
         self.section.setup_bars(self.bars_sprites, cfg)
 
-    def run(self, events):
+    def run(self, events, client: Client):
         self.setup_bars()
-        self.input(events)
+        self.input(events, client)
         self.bars_sprites.update()
         self.bars_sprites.draw(self.surface)
-
-        # print(self.current_bar, self.id_current_section)

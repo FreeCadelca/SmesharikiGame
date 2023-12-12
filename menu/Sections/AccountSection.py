@@ -44,8 +44,8 @@ class AccountSection(AbstractSection):
                 self.variety_bars[i])
             self.bars.append(new_bar)
 
-    def input(self, keys, last_pressed_keys, id_current_section, events):
-        super().input(keys, last_pressed_keys, id_current_section, events)
+    def input(self, keys, last_pressed_keys, id_current_section, events, client):
+        super().input(keys, last_pressed_keys, id_current_section, events, client)
         if keys[pygame.K_RETURN] and not last_pressed_keys[pygame.K_RETURN]:
             bar = self.variety_bars[self.current_bar]
             if bar == "Log in":
@@ -81,6 +81,6 @@ class AccountSection(AbstractSection):
         current_bar_sprite = DefaultBar(
             'selected',
             (screen_width // 2, screen_height // 2 + offset_of_current_bar),
-            'menu\\Stroke_700px.png'
+            'Stroke_700px.png'
         )
         bars_sprites.add(current_bar_sprite)

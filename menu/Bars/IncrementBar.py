@@ -9,7 +9,7 @@ class IncrementBar(DefaultBar):
     BAR_WIDTH = 700
 
     def __init__(self, name, pos, text, value=50, text_offset_x=0):
-        super().__init__(name, pos, 'menu\\IncrementBar_700px.png')
+        super().__init__(name, pos, 'IncrementBar_700px.png')
         self.text_offset_x = text_offset_x
         self.text = text
         self.value = value
@@ -17,7 +17,7 @@ class IncrementBar(DefaultBar):
         self.rect = self.image.get_rect(center=pos)
 
         pygame.font.init()
-        my_font = pygame.font.Font('source\\' + config_parse()["font"], 30)
+        my_font = pygame.font.Font('ui\\' + config_parse()["font"], 30)
         text_surface = my_font.render(
             self.text,
             False,
@@ -34,7 +34,7 @@ class IncrementBar(DefaultBar):
     def update(self):
         self.image = self.primary_image.copy()  # resetting the image to a state without rendering a number
         pygame.font.init()
-        my_font = pygame.font.Font('source\\' + config_parse()["font"], 30)
+        my_font = pygame.font.Font('ui\\' + config_parse()["font"], 30)
 
         value_surface = my_font.render(
             str(self.value),

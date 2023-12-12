@@ -56,9 +56,9 @@ class SettingsSection(AbstractSection):
             )
             self.bars.append(new_bar)
 
-    def input(self, keys, last_pressed_keys, id_current_section, events):
+    def input(self, keys, last_pressed_keys, id_current_section, events, client):
         if self.state == 0:  # if self.state == 0
-            super().input(keys, last_pressed_keys, id_current_section, events)
+            super().input(keys, last_pressed_keys, id_current_section, events, client)
             if keys[pygame.K_RIGHT] and not last_pressed_keys[pygame.K_RIGHT]:
                 if SettingsSection.BARS_SETTINGS_TYPE[self.current_bar] == IncrementBar:
                     self.bars[self.current_bar].increment_value(5)
@@ -120,7 +120,7 @@ class SettingsSection(AbstractSection):
         current_bar_sprite = DefaultBar(
             'selected',
             (screen_width // 2, screen_height // 2 + offset_of_current_bar),
-            'menu\\Stroke_700px.png'
+            'Stroke_700px.png'
         )
         bars_sprites.add(current_bar_sprite)
 

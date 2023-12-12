@@ -1,9 +1,9 @@
 {
-    "Music volume": 85,
-    "VFX volume": 50,
+    "Music volume": 100,
+    "VFX volume": 35,
     "controls": {
-        "Left": "K_LEFT",
-        "Right": "K_RIGHT",
+        "Left": "K_a",
+        "Right": "K_d",
         "Jump": "K_SPACE"
     },
     "spacing": 5,

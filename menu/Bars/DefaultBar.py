@@ -9,7 +9,7 @@ class DefaultBar(pygame.sprite.Sprite):
         super().__init__()
         self.name = name
         self.pos = pos
-        self.image = pygame.image.load('source\\' + path)
+        self.image = pygame.image.load('menu\\pictures\\' + path)
         self.rect = self.image.get_rect(center=pos)
 
     def update(self):

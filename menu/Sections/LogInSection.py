@@ -4,6 +4,7 @@ from ..Bars.LabelBar import LabelBar
 
 from screen_data import *
 from config import *
+from hash import *
 
 
 class LogInSection(AbstractSection):
@@ -14,8 +15,9 @@ class LogInSection(AbstractSection):
         cfg = config_parse()
         self.max_bars = len(LogInSection.BARS_LOGIN)
         self.single_space = cfg['spacing']
-
+        self.typing_text = ['', '']  # text under stars in fields login, password
         self.state_of_entering_text = 0
+        self.debug_line = ''
         # the state when the text is entered in the field.
         # 0 - nothing is being entered, 1 - login, 2 - pass
 
@@ -43,19 +45,19 @@ class LogInSection(AbstractSection):
                 LogInSection.BARS_LOGIN[i])
             self.bars.append(new_bar)
 
-    def input(self, keys, last_pressed_keys, id_current_section, events):
-        super().input(keys, last_pressed_keys, id_current_section, events)
+    def input(self, keys, last_pressed_keys, id_current_section, events, client):
+        super().input(keys, last_pressed_keys, id_current_section, events, client)
         if self.state_of_entering_text:  # if we are typing text
             id_field = self.state_of_entering_text - 1
             for event in events:
                 if event.type == pygame.KEYDOWN:
                     if event.key in [pygame.K_ESCAPE, pygame.K_RETURN, pygame.K_UP, pygame.K_DOWN]:
-                        print(self.bars[id_field].text)
                         self.state_of_entering_text = 0
                     elif event.key == pygame.K_BACKSPACE:
-                        self.bars[id_field].text = self.bars[id_field].text[:-1]
+                        self.typing_text[id_field] = self.typing_text[id_field][:-1]
                     else:
-                        self.bars[id_field].text += event.unicode
+                        self.typing_text[id_field] += event.unicode
+            self.bars[id_field].text = '*' * len(self.typing_text[id_field]) if id_field else self.typing_text[id_field]
         else:
             if keys[pygame.K_RETURN] and not last_pressed_keys[pygame.K_RETURN]:
                 if 0 <= self.current_bar < 2:
@@ -66,9 +68,17 @@ class LogInSection(AbstractSection):
                     self.state_of_entering_text = self.current_bar + 1
                     last_pressed_keys[pygame.K_RETURN] = True
                 elif self.current_bar == 2:
-                    pass
-                    print(f'You are welcome! {self.bars[0].text}')
-                    id_current_section = 1
+                    if self.typing_text[0] and self.typing_text[1]:
+                        response = client.request_to_server(
+                            f'LogIn {self.typing_text[0]} {my_hash(self.typing_text[1])}'
+                        )
+                        if 'successfully' in response['answer']:
+                            id_current_section = 1
+                        else:
+                            if response['answer']:
+                                self.debug_line = response['answer']
+                            if response['error']:
+                                print(response['error'])
                 elif self.current_bar == 3:
                     id_current_section = 1
                     last_pressed_keys[pygame.K_UP] = True
@@ -91,6 +101,25 @@ class LogInSection(AbstractSection):
         current_bar_sprite = DefaultBar(
             'selected',
             (screen_width // 2, screen_height // 2 + offset_of_current_bar),
-            'menu\\Stroke_700px.png'
+            'Stroke_700px.png'
         )
         bars_sprites.add(current_bar_sprite)
+
+        new_bar = DefaultBar(
+            'debug_text',
+            (10 + DefaultBar.BAR_WIDTH // 2, 10 + DefaultBar.BAR_HEIGHT),
+            'Empty_700px.png'
+        )
+        pygame.font.init()
+        my_font = pygame.font.Font('ui\\' + config_parse()["font"], 16)
+        text_surface = my_font.render(
+            self.debug_line,
+            False,
+            (255, 0, 0))
+        text_width = text_surface.get_width()
+        text_height = text_surface.get_height()
+        new_bar.image.blit(
+            text_surface,
+            (0, 0)
+        )
+        bars_sprites.add(new_bar)

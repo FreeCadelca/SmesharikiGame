@@ -6,13 +6,13 @@ from .AbstractSection import AbstractSection
 from screen_data import *
 
 
-class AboutAssSection(AbstractSection):
+class AboutUsSection(AbstractSection):
     def __init__(self):
         super().__init__()
         self.max_bars = 1
 
-    def input(self, keys, last_pressed_keys, id_current_section, events):
-        super().input(keys, last_pressed_keys, id_current_section, events)
+    def input(self, keys, last_pressed_keys, id_current_section, events, client):
+        super().input(keys, last_pressed_keys, id_current_section, events, client)
         if keys[pygame.K_ESCAPE] and not last_pressed_keys[pygame.K_ESCAPE]:
             id_current_section = 0
             last_pressed_keys[pygame.K_UP] = True
@@ -24,3 +24,9 @@ class AboutAssSection(AbstractSection):
 
     def setup_bars(self, bars_sprites, cfg):
         super().setup_bars(bars_sprites, cfg)
+        newBar = DefaultBar(
+            'image',
+            (screen_width // 2, screen_height // 2),
+            "AboutUs.png"
+        )
+        bars_sprites.add(newBar)

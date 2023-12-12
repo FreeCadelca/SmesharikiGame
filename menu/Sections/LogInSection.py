@@ -1,8 +1,10 @@
+import pygame
+
 from ..Bars.DefaultBar import DefaultBar
 from .AbstractSection import AbstractSection
 from ..Bars.LabelBar import LabelBar
 
-from screen_data import *
+from code_with_decoration.screen_settings import *
 from config import *
 from hash import *
 
@@ -117,7 +119,7 @@ class LogInSection(AbstractSection):
             'Empty_700px.png'
         )
         pygame.font.init()
-        my_font = pygame.font.Font('ui\\' + config_parse()["font"], 16)
+        my_font = pygame.font.Font('fonts\\' + config_parse()["font"], 16)
         text_surface = my_font.render(
             self.debug_line,
             False,

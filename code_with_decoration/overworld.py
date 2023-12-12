@@ -1,7 +1,7 @@
 import pygame
-from game_data import levels
-from support import import_folder
-from decoration import Sky
+from code_with_decoration.game_data import levels
+from code_with_decoration.support import import_folder
+from code_with_decoration.decoration import Sky
 from create_path_on_platform import *
 
 
@@ -50,12 +50,13 @@ class Icon(pygame.sprite.Sprite):
 
 
 class Overworld:
-    def __init__(self, start_level, max_level, surface, create_level):
+    def __init__(self, start_level, max_level, surface, create_level, create_menu):
         # setup
         self.display_surface = surface
         self.max_level = max_level
         self.current_level = start_level
         self.create_level = create_level
+        self.create_menu = create_menu
 
         # movement logic
         self.moving = False
@@ -80,7 +81,6 @@ class Overworld:
             # убираю недоступные уровни, оставляю только доступные в соответствии с максимально достигнутым уровнем
             if index <= self.max_level:
                 node_sprite = Node(node_data['node_pos'], 'available', self.speed, node_data['node_graphics'])
-
             else:
                 node_sprite = Node(node_data['node_pos'], 'locked', self.speed, node_data['node_graphics'])
             self.nodes.add(node_sprite)
@@ -112,6 +112,8 @@ class Overworld:
             # метод игрового класса вызываем из overworld
             elif keys[pygame.K_SPACE]:
                 self.create_level(self.current_level)
+            elif keys[pygame.K_ESCAPE]:
+                self.create_menu()
 
     def get_movement_data(self, target):
         start = pygame.math.Vector2(self.nodes.sprites()[self.current_level].rect.center)

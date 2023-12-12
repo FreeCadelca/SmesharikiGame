@@ -1,7 +1,7 @@
-from settings import vertical_tile_number, tile_size, screen_width
+from code_with_decoration.screen_settings import vertical_tile_number, tile_size, screen_width
 import pygame
-from tiles import AnimatedTiles, StaticTile
-from support import import_folder
+from code_with_decoration.tiles import AnimatedTiles, StaticTile
+from code_with_decoration.support import import_folder
 from random import choice, randint
 from create_path_on_platform import *
 

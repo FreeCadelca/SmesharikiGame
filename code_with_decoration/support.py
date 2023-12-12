@@ -3,7 +3,7 @@ from csv import reader
 import pygame
 
 from create_path_on_platform import *
-from settings import tile_size
+from code_with_decoration.screen_settings import tile_size
 from os import walk
 
 

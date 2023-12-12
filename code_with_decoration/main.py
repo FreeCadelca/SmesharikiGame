@@ -1,5 +1,5 @@
 import pygame, sys
-from settings import *
+from screen_settings import *
 from create_path_on_platform import *
 from level import Level
 from overworld import Overworld

@@ -1,10 +1,10 @@
 import pygame
+
 from ..Bars.DefaultBar import DefaultBar
-from ..Bars.IncrementBar import IncrementBar
 from ..Bars.LabelBar import LabelBar
 from .AbstractSection import AbstractSection
 
-from screen_data import *
+from code_with_decoration.screen_settings import *
 from config import *
 
 
@@ -31,7 +31,10 @@ class MainMenuSection(AbstractSection):
     def input(self, keys, last_pressed_keys, id_current_section, events, client):
         super().input(keys, last_pressed_keys, id_current_section, events, client)
         if keys[pygame.K_RETURN] and not last_pressed_keys[pygame.K_RETURN]:
-            id_current_section = self.current_bar
+            if self.current_bar == 0:
+                id_current_section = -1
+            else:
+                id_current_section = self.current_bar
             last_pressed_keys[pygame.K_RETURN] = True
         if keys[pygame.K_ESCAPE] and not last_pressed_keys[pygame.K_ESCAPE]:
             id_current_section = 0

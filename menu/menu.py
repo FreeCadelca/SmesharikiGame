@@ -1,7 +1,4 @@
-from unittest.mock import Mock
-
 import pygame
-
 from .Sections.MainMenuSection import MainMenuSection
 from .Sections.AccountSection import AccountSection
 from .Sections.SettingsSection import SettingsSection
@@ -9,7 +6,6 @@ from .Sections.AboutUsSection import AboutUsSection
 from .Sections.LogInSection import LogInSection
 from .Sections.SignInSection import SignInSection
 
-from screen_data import *
 from config import *
 from Client import *
 
@@ -17,7 +13,7 @@ from Client import *
 class Menu:
     SECTIONS = [MainMenuSection, AccountSection, SettingsSection, AboutUsSection, LogInSection, SignInSection]
 
-    def __init__(self, surface):
+    def __init__(self, surface, create_overworld, max_level=2):
         self.bars_sprites = None
         self.surface = surface
         self.id_current_section = 0
@@ -38,11 +34,15 @@ class Menu:
             pygame.K_ESCAPE: False
         }
         self.section = MainMenuSection()
+        self.create_overworld = create_overworld
+        self.max_level = max_level
 
     def input(self, events, client: Client):
         previous_section = self.id_current_section
         self.id_current_section = self.section.input(
             pygame.key.get_pressed(), self.last_pressed_keys, self.id_current_section, events, client)
+        if self.id_current_section == -1:
+            self.create_overworld(1, self.max_level)
         if previous_section != self.id_current_section:
             self.section = Menu.SECTIONS[self.id_current_section]()
 

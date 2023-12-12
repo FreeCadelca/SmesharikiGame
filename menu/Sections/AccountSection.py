@@ -1,9 +1,10 @@
+import pygame
+
 from ..Bars.DefaultBar import DefaultBar
-from ..Bars.IncrementBar import IncrementBar
 from .AbstractSection import AbstractSection
 from ..Bars.LabelBar import LabelBar
 
-from screen_data import *
+from code_with_decoration.screen_settings import *
 from config import *
 
 

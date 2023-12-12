@@ -1,5 +1,5 @@
 import pygame
-from tiles import AnimatedTiles
+from code_with_decoration.tiles import AnimatedTiles
 from random import randint
 from create_path_on_platform import *
 

@@ -1,5 +1,5 @@
 import pygame
-from support import import_folder
+from code_with_decoration.support import import_folder
 from math import sin
 from create_path_on_platform import *
 

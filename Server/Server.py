@@ -98,6 +98,11 @@ class Server:
                                 "update Accounts set Coins = ? where Login = ?",
                                 (cfg["coins"], cfg["current_user"],)
                             )
+                            connection.commit()
+                            cursor.close()
+                            to_send['answer'] = 'successful updated'
+                        else:
+                            to_send['error'] = 'failed, not authorized'
                     else:
                         to_send['error'] = 'there is no such command'
                     to_send['cfg'] = cfg

@@ -1,6 +1,6 @@
 {
     "Music volume": 100,
-    "VFX volume": 35,
+    "VFX volume": 40,
     "controls": {
         "Left": "K_LEFT",
         "Right": "K_RIGHT",
@@ -8,6 +8,6 @@
     },
     "spacing": 5,
     "font": "ARCADEPI.TTF",
-    "coins": 0,
-    "current_user": "guest"
+    "coins": 140,
+    "current_user": "FreeCadelca"
 }

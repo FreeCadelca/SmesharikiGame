@@ -1,0 +1,13 @@
+{
+    "Music volume": 100,
+    "VFX volume": 35,
+    "controls": {
+        "Left": "K_LEFT",
+        "Right": "K_RIGHT",
+        "Jump": "K_UP"
+    },
+    "spacing": 5,
+    "font": "ARCADEPI.TTF",
+    "coins": 0,
+    "current_user": "guest"
+}

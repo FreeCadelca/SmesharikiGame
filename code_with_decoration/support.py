@@ -8,6 +8,15 @@ from os import walk
 
 
 def import_folder(path):
+    """
+    Imports a list of surfaces from an entire folder of images.
+
+    Parameters:
+    - path (str): The path to the folder containing images.
+
+    Returns:
+    - list: A list of pygame.Surface objects.
+    """
     surface_list = []
     for _, __, image_files in walk(path):
         for image in image_files:
@@ -18,6 +27,15 @@ def import_folder(path):
 
 
 def import_csv_layout(path):
+    """
+    Imports a 2D list representing a level layout from a CSV file.
+
+    Parameters:
+    - path (str): The path to the CSV file.
+
+    Returns:
+    - list: A 2D list representing the level layout.
+    """
     path = create_path_on_platform(path)
     ground_map = []
     with open(path) as map:
@@ -28,6 +46,15 @@ def import_csv_layout(path):
 
 
 def import_cut_graphics(path):
+    """
+    Imports a list of cut tiles from a single image.
+
+    Parameters:
+    - path (str): The path to the image containing cut tiles.
+
+    Returns:
+    - list: A list of pygame.Surface objects representing cut tiles.
+    """
     path = create_path_on_platform(path)
     surface = pygame.image.load(path).convert_alpha()
     tile_num_x = int(surface.get_size()[0] / tile_size)

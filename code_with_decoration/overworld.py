@@ -6,7 +6,32 @@ from create_path_on_platform import *
 
 
 class Node(pygame.sprite.Sprite):
+    """
+    Represents a node on the Overworld map.
+
+    Attributes:
+    - frames (list): A list of images for animation.
+    - frame_index (float): Index representing the current frame in the animation.
+    - image (pygame.Surface): The current image of the node.
+    - status (str): The status of the node ('available' or 'locked').
+    - rect (pygame.Rect): The rectangular area occupied by the node on the screen.
+    - detection_zone (pygame.Rect): The collision detection zone around the node.
+
+    Methods:
+    - __init__(self, pos, status, icon_speed, path): Initializes a new Node instance.
+    - animate(self): Animates the node by updating the frame index and image.
+    - update(self): Updates the node, applying animations and handling locked status tinting.
+    """
     def __init__(self, pos, status, icon_speed, path):
+        """
+        Initializes a new Node instance.
+
+        Parameters:
+        - pos (tuple): The position (x, y) of the node on the Overworld map.
+        - status (str): The status of the node ('available' or 'locked').
+        - icon_speed (float): The speed of the player's icon on the Overworld map.
+        - path (str): The path to the folder containing images for the node's animation.
+        """
         path = create_path_on_platform(path)
         super().__init__()
         self.frames = import_folder(path)
@@ -23,12 +48,18 @@ class Node(pygame.sprite.Sprite):
                                           icon_speed, icon_speed)
 
     def animate(self):
+        """
+        Animates the node by updating the frame index and image.
+        """
         self.frame_index += 0.1
         if self.frame_index >= len(self.frames):
             self.frame_index = 0
         self.image = self.frames[int(self.frame_index)]
 
     def update(self):
+        """
+        Updates the node, applying animations and handling locked status tinting.
+        """
         # анимация только доступных лвл
         if self.status == 'available':
             self.animate()
@@ -39,13 +70,34 @@ class Node(pygame.sprite.Sprite):
 
 
 class Icon(pygame.sprite.Sprite):
+    """
+    Represents the icon on the Overworld map.
+
+    Attributes:
+    - pos (tuple): The position of the icon.
+    - image (pygame.Surface): The image of the icon.
+    - rect (pygame.Rect): The rectangular area occupied by the icon on the screen.
+
+    Methods:
+    - __init__(self, pos): Initializes a new Icon instance.
+    - update(self): Updates the position of the icon on the Overworld map.
+    """
     def __init__(self, pos):
+        """
+        Initializes a new Icon instance.
+
+        Parameters:
+        - pos (tuple): The position (x, y) of the icon on the Overworld map.
+        """
         super().__init__()
         self.pos = pos
         self.image = pygame.image.load(create_path_on_platform('./graphics/overworld/hat.png'))
         self.rect = self.image.get_rect(center=pos)
 
     def update(self):
+        """
+        Updates the position of the icon on the Overworld map.
+        """
         self.rect.center = self.pos
 
 
@@ -74,6 +126,9 @@ class Overworld:
         self.timer_lengh = 1000
 
     def setup_nodes(self):
+        """
+        Initializes and sets up the nodes on the Overworld map based on the maximum level reached.
+        """
         self.nodes = pygame.sprite.Group()
 
         # доступ к кортежу из словарей
@@ -87,17 +142,26 @@ class Overworld:
 
     # рисунок путей к уровням
     def draw_paths(self):
+        """
+        Draws paths between available levels on the Overworld map.
+        """
         points = [node['node_pos'] for index, node in enumerate(levels.values()) if index <= self.max_level]
         # surface color fillcolor pounts line_width
         pygame.draw.lines(self.display_surface, '#a04f45', False, points, 6)
 
     def setup_icon(self):
+        """
+        Initializes and sets up the player's icon on the Overworld map.
+        """
         self.icon = pygame.sprite.GroupSingle()
         # иконка будет отображается на позиции текущего уровня
         icon_sprite = Icon(self.nodes.sprites()[self.current_level].rect.center)
         self.icon.add(icon_sprite)
 
     def input(self):
+        """
+        Handles player input for navigating the Overworld map and creating game levels.
+        """
         keys = pygame.key.get_pressed()
 
         if not self.moving and self.allow_input:
@@ -116,6 +180,15 @@ class Overworld:
                 self.create_menu()
 
     def get_movement_data(self, target):
+        """
+        Calculates the movement data for the player's icon.
+
+        Parameters:
+        - target (str): The target direction ('next' or 'previous').
+
+        Returns:
+        - pygame.math.Vector2: The normalized vector representing the movement direction.
+        """
         start = pygame.math.Vector2(self.nodes.sprites()[self.current_level].rect.center)
         if target == 'next':
             end = pygame.math.Vector2(self.nodes.sprites()[self.current_level + 1].rect.center)
@@ -124,6 +197,9 @@ class Overworld:
         return (end - start).normalize()
 
     def update_icon_pos(self):
+        """
+        Updates the position of the player's icon on the Overworld map during movement.
+        """
         # позиция иконки - определяется текущим уровнем
         if self.moving and self.move_direction:
             self.icon.sprite.pos += self.move_direction * self.speed
@@ -133,12 +209,18 @@ class Overworld:
                 self.move_direction = pygame.math.Vector2(0, 0)
 
     def input_timer(self):
+        """
+        Manages the input timer to control when player input is allowed.
+        """
         if not self.allow_input:
             current_time = pygame.time.get_ticks()
             if current_time - self.start_time >= self.timer_lengh:
                 self.allow_input = True
 
     def run(self):
+        """
+        Executes the main logic for updating the Overworld map, handling input, and rendering.
+        """
         self.input_timer()
         self.input()
         self.update_icon_pos()

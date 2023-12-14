@@ -5,7 +5,36 @@ from create_path_on_platform import *
 
 
 class Player(pygame.sprite.Sprite):
+    """
+    The Player class represents the main character in the game.
+
+    Attributes:
+    - pos (tuple): The initial position of the player on the screen.
+    - surface (pygame.Surface): The display surface where the player is rendered.
+    - change_health (function): A function to change the player's health.
+
+    Methods:
+    - __init__(self, pos, surface, change_health): Initializes the player with the given position, surface, and health-changing function.
+    - import_character_assets(self): Imports character animations from the specified folder.
+    - animate(self): Animates the player based on the current status (idle, run, jump, fall).
+    - get_input(self): Handles user input for movement and jumping.
+    - get_status(self): Determines the current status of the player (idle, run, jump, fall).
+    - apply_gravity(self): Applies gravity to the player's vertical movement.
+    - jump(self): Initiates a jump, plays jump sound, and adjusts vertical speed.
+    - get_damage(self): Inflicts damage on the player and triggers invincibility if not already invincible.
+    - invincibility_timer(self): Manages the duration of invincibility after taking damage.
+    - wave_value(self): Generates a sine wave value for controlling image alpha during invincibility.
+    - update(self): Updates the player's state based on input, status, and animations.
+    """
     def __init__(self, pos, surface, change_health):
+        """
+        Initializes a new Player object.
+
+        Args:
+        - pos (tuple): The initial position (x, y) of the player on the screen.
+        - surface (pygame.Surface): The display surface where the player is rendered.
+        - change_health (function): A function to change the player's health.
+        """
         super().__init__()
         self.import_character_assets()
         self.frame_index = 0
@@ -40,6 +69,9 @@ class Player(pygame.sprite.Sprite):
         self.hit_sound = pygame.mixer.Sound(create_path_on_platform('./audio/effects/hit.wav'))
 
     def import_character_assets(self):
+        """
+        Imports character animations from the specified folder and stores them in a dictionary.
+        """
         character_path = create_path_on_platform('./graphics/character/')
         self.animations = {'idle': [], 'run': [], 'jump': [], 'fall': []}
         for animation in self.animations.keys():
@@ -47,6 +79,9 @@ class Player(pygame.sprite.Sprite):
             self.animations[animation] = import_folder(full_path)
 
     def animate(self):
+        """
+        Animates the player based on the current status, updating the frame index and image accordingly.
+        """
         animation = self.animations[self.status]
         # loop over frame index
         self.frame_index += self.animation_speed
@@ -80,6 +115,9 @@ class Player(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(midtop=self.rect.midtop)
 
     def get_input(self):
+        """
+        Handles user input for movement and jumping, updating the player's direction and facing direction.
+        """
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_RIGHT]:
@@ -94,6 +132,9 @@ class Player(pygame.sprite.Sprite):
             self.jump()
 
     def get_status(self):
+        """
+        Determines the current status of the player (idle, run, jump, fall) based on the player's movement.
+        """
         if self.direction.y < 0:
             self.status = 'jump'
         elif self.direction.y > 1:
@@ -106,14 +147,23 @@ class Player(pygame.sprite.Sprite):
 
     # применение силы тяжести
     def apply_gravity(self):
+        """
+        Applies gravity to the player's vertical movement.
+        """
         self.direction.y += self.gravity
         self.rect.y += self.direction.y
 
     def jump(self):
+        """
+        Initiates a jump, plays the jump sound, and adjusts the player's vertical speed.
+        """
         self.jump_sound.play()
         self.direction.y = self.jump_speed
 
     def get_damage(self):
+        """
+        Inflicts damage on the player, triggers invincibility, and plays the hit sound if the player is not already invincible.
+        """
         if not self.invincible:
             self.change_health(-10)
             self.invincible = True
@@ -121,12 +171,18 @@ class Player(pygame.sprite.Sprite):
             self.hit_sound.play()
 
     def invincibility_timer(self):
+        """
+        Manages the duration of invincibility after taking damage.
+        """
         if self.invincible:
             current_time = pygame.time.get_ticks()
             if current_time - self.hurt_time >= self.invincibility_duration:
                 self.invincible = False
 
     def wave_value(self):
+        """
+        Generates a sine wave value for controlling image alpha during invincibility.
+        """
         value = sin(pygame.time.get_ticks())
         if value >= 0:
             return 255
@@ -134,6 +190,9 @@ class Player(pygame.sprite.Sprite):
             return 0
 
     def update(self):
+        """
+        Updates the player's state based on input, status, animations, invincibility, and wave value.
+        """
         self.get_input()
         self.get_status()
         self.animate()

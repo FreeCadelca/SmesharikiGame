@@ -11,7 +11,52 @@ from code_with_decoration.particles import ParticEffect
 
 
 class Level:
+    """
+    The Level class manages individual game levels, handling player setup, tile groups, collisions,
+    and various game elements.
+
+    Attributes:
+    - display_surface (pygame.Surface): Pygame surface for rendering the level.
+    - world_shift (int): Horizontal shift for scrolling the level.
+    - current_x (int): Current x-coordinate of the player.
+    - coin_sound (pygame.mixer.Sound): Sound object for coin collection.
+    - stomp_sound (pygame.mixer.Sound): Sound object for enemy stomping.
+    - create_overworld (function): Callback function to create the overworld.
+    - current_level (int): Current level number.
+    - new_max_level (int): New maximum level unlocked.
+    - player (pygame.sprite.GroupSingle): Pygame sprite group for the player.
+    - goal (pygame.sprite.GroupSingle): Pygame sprite group for the level goal.
+    - player_on_ground (bool): Flag indicating if the player is on the ground.
+    - change_coins (function): Callback function to change the coin count.
+    - explosion_sprites (pygame.sprite.Group): Pygame sprite group for explosion particles.
+    - ground_sprites (pygame.sprite.Group): Pygame sprite group for ground tiles.
+    - flying_rocks_sprites (pygame.sprite.Group): Pygame sprite group for floating rocks.
+    - coins_sprites (pygame.sprite.Group): Pygame sprite group for coins.
+    - enemy_sprites (pygame.sprite.Group): Pygame sprite group for enemies.
+    - constraint_sprites (pygame.sprite.Group): Pygame sprite group for constraint tiles.
+    - sky (Sky): Instance of the Sky class for sky decoration.
+    - lava (Lava): Instance of the Lava class for lava decoration.
+    - clouds (Clouds): Instance of the Clouds class for cloud decoration.
+
+    Methods:
+    - __init__(self, current_level, surface, create_overworld, change_coins, change_health):
+        Initializes the level with the specified parameters.
+    - create_tile_group(self, layout, type):
+        Creates a Pygame sprite group based on the layout and type.
+    - player_setup(self, layout, change_health):
+        Sets up the player and the goal based on the layout.
+    """
     def __init__(self, current_level, surface, create_overworld, change_coins, change_health):
+        """
+        Initializes the Level class with the specified parameters.
+
+        Args:
+        - current_level (int): The current level number.
+        - surface (pygame.Surface): The surface for rendering the level.
+        - create_overworld (function): Callback function to create the overworld.
+        - change_coins (function): Callback function to change the coin count.
+        - change_health (function): Callback function to change the player's health.
+        """
         # общая настройка
         self.display_surface = surface
         self.world_shift = 0
@@ -70,6 +115,16 @@ class Level:
         self.clouds = Clouds(400, level_width, 30)
 
     def create_tile_group(self, layout, type):
+        """
+        Creates a Pygame sprite group based on the layout and type.
+
+        Args:
+        - layout (list): The layout of the tiles.
+        - type (str): The type of tiles to create.
+
+        Returns:
+        - pygame.sprite.Group: The created sprite group.
+        """
         sprite_group = pygame.sprite.Group()
         for row_index, row in enumerate(layout):
             for col_index, val in enumerate(row):
@@ -107,6 +162,13 @@ class Level:
         return sprite_group
 
     def player_setup(self, layout, change_health):
+        """
+        Sets up the player and the goal based on the layout.
+
+        Args:
+        - layout (list): The layout for player and goal placement.
+        - change_health (function): Callback function to change the player's health.
+        """
         for row_index, row in enumerate(layout):
             for col_index, val in enumerate(row):
                 x = col_index * tile_size
@@ -122,11 +184,17 @@ class Level:
                     self.goal.add(sprite)
 
     def enemy_collision_reverse(self):
+        """
+        Reverses the direction of enemies when they collide with constraints.
+        """
         for enemy in self.enemy_sprites.sprites():
             if pygame.sprite.spritecollide(enemy, self.constraint_sprites, False):
                 enemy.reverse()
 
     def horizontal_movement_collision(self):
+        """
+        Handles horizontal movement collisions for the player.
+        """
         player = self.player.sprite
         player.rect.x += player.direction.x * player.speed
         # спрайты для столкновения
@@ -149,6 +217,9 @@ class Level:
             player.on_right = False
 
     def vertical_movement_collision(self):
+        """
+        Handles vertical movement collisions for the player.
+        """
         player = self.player.sprite
         player.apply_gravity()
         # спрайты для столкновения
@@ -171,6 +242,9 @@ class Level:
 
     # камера
     def scroll_x(self):
+        """
+        Scrolls the screen horizontally based on player movement.
+        """
         player = self.player.sprite
         # нахождение игрока по координате Х
         player_x = player.rect.centerx
@@ -188,21 +262,33 @@ class Level:
             player.speed = 8
 
     def get_player_on_ground(self):
+        """
+        Updates the player's on_ground status.
+        """
         if self.player.sprite.on_ground:
             self.player_on_ground = True
         else:
             self.player_on_ground = False
 
     def check_death(self):
+        """
+        Checks if the player fell off the platform and went off-screen.
+        """
         # игрок упал с платформы и ушёл под экран
         if self.player.sprite.rect.top > screen_height:
             self.create_overworld(self.current_level, 0)
 
     def check_win(self):
+        """
+        Checks if the player collides with the goal, triggering a level transition.
+        """
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.create_overworld(self.current_level, self.new_max_level)
 
-    def chack_coin_collisions(self):
+    def check_coin_collisions(self):
+        """
+        Checks for collisions between the player and coins, updating the coin count.
+        """
         collided_coins = pygame.sprite.spritecollide(self.player.sprite, self.coins_sprites, True)
         if collided_coins:
             self.coin_sound.play()
@@ -210,6 +296,9 @@ class Level:
                 self.change_coins(coin.value)
 
     def check_enemy_collisions(self):
+        """
+        Checks for collisions between the player and enemies, handling damage or stomping effects.
+        """
         enemy_collisions = pygame.sprite.spritecollide(self.player.sprite, self.enemy_sprites, False)
 
         if enemy_collisions:
@@ -227,6 +316,9 @@ class Level:
                     self.player.sprite.get_damage()
 
     def run(self):
+        """
+        Runs the main loop for the level, updating and rendering game elements.
+        """
         # decoration
         self.sky.draw(self.display_surface)
         self.clouds.draw(self.display_surface, self.world_shift)
@@ -261,7 +353,7 @@ class Level:
 
         self.check_death()
         self.check_win()
-        self.chack_coin_collisions()
+        self.check_coin_collisions()
         self.check_enemy_collisions()
         # lava
         self.lava.draw(self.display_surface, self.world_shift)

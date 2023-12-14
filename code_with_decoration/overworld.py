@@ -102,7 +102,47 @@ class Icon(pygame.sprite.Sprite):
 
 
 class Overworld:
+    """
+    Manages the Overworld map, nodes, and player icon.
+
+    Attributes:
+    - display_surface (pygame.Surface): The display surface where the Overworld is rendered.
+    - max_level (int): The maximum level reached by the player.
+    - current_level (int): The current level selected by the player.
+    - create_level (function): A function to create a specific game level.
+    - create_menu (function): A function to create a menu.
+    - moving (bool): Indicates whether the icon is currently moving.
+    - move_direction (pygame.math.Vector2): The direction of the icon's movement.
+    - speed (int): The speed of the icon's movement.
+    - nodes (pygame.sprite.Group): Sprite group containing nodes on the Overworld map.
+    - icon (pygame.sprite.GroupSingle): Sprite group containing the player's icon on the Overworld.
+    - sky (Sky): Instance of the Sky class for background decoration.
+    - start_time (int): The time at which the input timer started.
+    - allow_input (bool): Indicates whether input is currently allowed.
+    - timer_length (int): The duration of the input timer (in milliseconds).
+
+    Methods:
+    - __init__(self, start_level, max_level, surface, create_level): Initializes a new Overworld instance.
+    - setup_nodes(self): Initializes and sets up the nodes on the Overworld map based on the maximum level reached.
+    - draw_paths(self): Draws paths between available nodes on the Overworld map.
+    - setup_icon(self): Initializes and sets up the player's icon on the Overworld map.
+    - input(self): Handles player input for navigating the Overworld map and creating game levels.
+    - get_movement_data(self, target): Calculates the movement data for the player's icon.
+    - update_icon_pos(self): Updates the position of the player's icon on the Overworld map during movement.
+    - input_timer(self): Manages the input timer to control when player input is allowed.
+    - run(self): Executes the main logic for updating the Overworld map, handling input, and rendering.
+    """
     def __init__(self, start_level, max_level, surface, create_level, create_menu):
+        """
+        Initializes a new Overworld instance.
+
+        Parameters:
+        - start_level (int): The initial level selected by the player.
+        - max_level (int): The maximum level reached by the player.
+        - surface (pygame.Surface): The display surface where the Overworld is rendered.
+        - create_level (function): A function to create a specific game level.
+        - create_menu (function): A function to create a menu.
+        """
         # setup
         self.display_surface = surface
         self.max_level = max_level

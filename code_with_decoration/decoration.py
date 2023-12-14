@@ -7,7 +7,24 @@ from create_path_on_platform import *
 
 
 class Sky:
+    """
+    Represents the sky background in the game.
+
+    Attributes:
+    - top (pygame.Surface): The top part of the sky image.
+    - horizon (int): The horizon level where the sky meets the ground.
+
+    Methods:
+    - __init__(self, horizon): Initializes a new Sky instance.
+    - draw(self, surface): Draws the sky on the specified surface.
+    """
     def __init__(self, horizon):
+        """
+        Initializes a new Sky instance.
+
+        Parameters:
+        - horizon (int): The horizon level where the sky meets the ground.
+        """
         self.top = pygame.image.load(create_path_on_platform('./graphics/tiles/Sky.png')).convert()
         # self.middle = pygame.image.load('./graphics/tiles/sky_middle.png').convert()
         # self.bottom = pygame.image.load('./graphics/tiles/sky_bottom.png').convert()
@@ -18,6 +35,12 @@ class Sky:
         # self.middle = pygame.transform.scale(self.middle, (screen_width, tile_size*11))
 
     def draw(self, surface):
+        """
+        Draws the sky on the specified surface.
+
+        Parameters:
+        - surface (pygame.Surface): The surface where the sky will be drawn.
+        """
         for row in range(vertical_tile_number):
             y = row * tile_size * 11
             if row < self.horizon:
@@ -29,7 +52,24 @@ class Sky:
 
 
 class Lava:
+    """
+    Represents a lava hazard in the game.
+
+    Attributes:
+    - lava_sprites (pygame.sprite.Group): Sprite group containing individual lava tiles.
+
+    Methods:
+    - __init__(self, top, level_width): Initializes a new Lava instance.
+    - draw(self, surface, shift): Draws the lava on the specified surface with a horizontal shift.
+    """
     def __init__(self, top, level_width):
+        """
+        Initializes a new Lava instance.
+
+        Parameters:
+        - top (int): The vertical position of the top of the lava.
+        - level_width (int): The width of the game level.
+        """
         lava_start = -screen_width
         lava_tile_width = 180
         tile_x_amount = int((level_width + screen_width * 2) / lava_tile_width)
@@ -42,12 +82,37 @@ class Lava:
             self.lava_sprites.add(sprite)
 
     def draw(self, surface, shift):
+        """
+        Draws the lava on the specified surface with a horizontal shift.
+
+        Parameters:
+        - surface (pygame.Surface): The surface where the lava will be drawn.
+        - shift (int): The horizontal shift applied to the lava tiles.
+        """
         self.lava_sprites.update(shift)
         self.lava_sprites.draw(surface)
 
 
 class Clouds:
+    """
+    Represents a layer of clouds in the sky.
+
+    Attributes:
+    - cloud_sprites (pygame.sprite.Group): Sprite group containing individual cloud tiles.
+
+    Methods:
+    - __init__(self, horizon, level_width, cloud_number): Initializes a new Clouds instance.
+    - draw(self, surface, shift): Draws the clouds on the specified surface with a horizontal shift.
+    """
     def __init__(self, horizon, level_width, cloud_number):
+        """
+        Initializes a new Clouds instance.
+
+        Parameters:
+        - horizon (int): The vertical position where the clouds are placed.
+        - level_width (int): The width of the game level.
+        - cloud_number (int): The number of clouds to generate.
+        """
         cloud_surf_list = import_folder(create_path_on_platform('./graphics/tiles/clouds'))
         min_x = -screen_width
         max_x = level_width + screen_width
@@ -63,5 +128,12 @@ class Clouds:
             self.cloud_sprites.add(sprite)
 
     def draw(self, surface, shift):
+        """
+        Draws the clouds on the specified surface with a horizontal shift.
+
+        Parameters:
+        - surface (pygame.Surface): The surface where the clouds will be drawn.
+        - shift (int): The horizontal shift applied to the cloud tiles.
+        """
         self.cloud_sprites.update(shift)
         self.cloud_sprites.draw(surface)

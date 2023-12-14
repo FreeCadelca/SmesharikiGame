@@ -79,7 +79,6 @@ video = moviepy.editor.VideoFileClip(create_path_on_platform("./intro.mp4"))
 intro = video.resize((screen_width, screen_height))
 intro.preview()
 
-
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

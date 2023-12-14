@@ -1,13 +1,13 @@
 {
     "Music volume": 100,
-    "VFX volume": 40,
+    "VFX volume": 100,
     "controls": {
-        "Left": "K_LEFT",
-        "Right": "K_RIGHT",
-        "Jump": "K_UP"
+        "Left": "K_a",
+        "Right": "K_d",
+        "Jump": "K_w"
     },
     "spacing": 5,
     "font": "ARCADEPI.TTF",
-    "coins": 140,
+    "coins": 182,
     "current_user": "FreeCadelca"
 }

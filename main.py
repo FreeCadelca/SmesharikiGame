@@ -9,6 +9,7 @@ from Client import Client
 from menu.menu import Menu
 from config import *
 
+
 class Game:
     def __init__(self, client: Client, status='menu'):
         # game attributes
@@ -30,11 +31,12 @@ class Game:
         self.create_menu()
 
     def create_level(self, current_level):
-        self.level = Level(current_level, screen, self.create_overworld, self.change_coins, self.change_health)
+        self.level = Level(current_level, screen, self.create_overworld, self.change_coins, self.change_health,
+                           self.game_over)
         self.status = 'level'
         self.overworld_music.stop()
         self.level_music.play(loops=-1)
-        self.level_music.set_volume(0.25)
+        self.level_music.set_volume(config_parse()["Music volume"] / 100)
 
     def create_menu(self):
         self.status = 'menu'
@@ -46,7 +48,7 @@ class Game:
         self.status = 'overworld'
         self.level_music.stop()
         self.overworld_music.play(loops=-1)
-        self.overworld_music.set_volume(-0.5)
+        self.overworld_music.set_volume(config_parse()["Music volume"] / 100)
 
     def change_coins(self, amount):
         self.coins += amount
@@ -56,19 +58,25 @@ class Game:
 
     def check_game_over(self):
         if self.cur_health <= 0:
-            config_edit(['coins'], self.coins + config_parse()['coins'])
-            response = client.request_to_server(
-                json.dumps(
-                    {
-                        'msg': f'UpdateCoins',
-                        'cfg': json.dumps(config_parse())
-                    }
-                )
+            self.game_over()
+
+    def game_over(self):
+        config_edit(['coins'], self.coins + config_parse()['coins'])
+        response = client.request_to_server(
+            json.dumps(
+                {
+                    'msg': f'UpdateCoins',
+                    'cfg': json.dumps(config_parse())
+                }
             )
-            self.cur_health = 100
-            self.coins = 0
-            self.overworld = Overworld(0, self.max_level, screen, self.create_level, self.create_menu)
-            self.status = 'overworld'
+        )
+        self.cur_health = 100
+        self.coins = 0
+        self.overworld = Overworld(0, self.max_level, screen, self.create_level, self.create_menu)
+        self.status = 'overworld'
+        self.level_music.stop()
+        self.overworld_music.play(-1)
+        self.overworld_music.set_volume(config_parse()["Music volume"] / 100)
 
     def run(self, events):
         if self.status == 'menu':

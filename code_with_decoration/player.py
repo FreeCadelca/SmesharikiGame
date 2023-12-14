@@ -2,6 +2,8 @@ import pygame
 from code_with_decoration.support import import_folder
 from math import sin
 from create_path_on_platform import *
+from config import *
+from pygame_dicts import *
 
 
 class Player(pygame.sprite.Sprite):
@@ -36,8 +38,9 @@ class Player(pygame.sprite.Sprite):
 
         # audio
         self.jump_sound = pygame.mixer.Sound(create_path_on_platform('./audio/effects/jump.wav'))
-        self.jump_sound.set_volume(0.25)
+        self.jump_sound.set_volume(config_parse()["VFX volume"] / 100)
         self.hit_sound = pygame.mixer.Sound(create_path_on_platform('./audio/effects/hit.wav'))
+        self.hit_sound.set_volume(config_parse()["VFX volume"] / 100)
 
     def import_character_assets(self):
         character_path = create_path_on_platform('./graphics/character/')
@@ -81,16 +84,16 @@ class Player(pygame.sprite.Sprite):
 
     def get_input(self):
         keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_RIGHT]:
+        cfg = config_parse()
+        if keys[STR_TO_PYGAME_CONSTANT[cfg['controls']['Right']]]:
             self.direction.x = 1
             self.facing_right = True
-        elif keys[pygame.K_LEFT]:
+        elif keys[STR_TO_PYGAME_CONSTANT[cfg['controls']['Left']]]:
             self.direction.x = -1
             self.facing_right = False
         else:
             self.direction.x = 0
-        if keys[pygame.K_SPACE] and self.on_ground:
+        if keys[STR_TO_PYGAME_CONSTANT[cfg['controls']['Jump']]] and self.on_ground:
             self.jump()
 
     def get_status(self):

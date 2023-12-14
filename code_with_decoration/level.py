@@ -8,10 +8,11 @@ from code_with_decoration.decoration import Sky, Lava, Clouds
 from code_with_decoration.player import Player
 from code_with_decoration.game_data import levels
 from code_with_decoration.particles import ParticEffect
+from config import *
 
 
 class Level:
-    def __init__(self, current_level, surface, create_overworld, change_coins, change_health):
+    def __init__(self, current_level, surface, create_overworld, change_coins, change_health, game_over_func):
         # общая настройка
         self.display_surface = surface
         self.world_shift = 0
@@ -19,9 +20,9 @@ class Level:
 
         # audio
         self.coin_sound = pygame.mixer.Sound(create_path_on_platform('./audio/effects/coin.wav'))
-        self.coin_sound.set_volume(0.25)
+        self.coin_sound.set_volume(config_parse()["VFX volume"] / 100)
         self.stomp_sound = pygame.mixer.Sound(create_path_on_platform('./audio/effects/stomp.wav'))
-        self.stomp_sound.set_volume(0.25)
+        self.stomp_sound.set_volume(config_parse()["VFX volume"] / 100)
 
         # связь с overworld
         self.create_overworld = create_overworld
@@ -38,6 +39,7 @@ class Level:
 
         # user interface
         self.change_coins = change_coins
+        self.game_over_func = game_over_func
 
         # explosion particles
         self.explosion_sprites = pygame.sprite.Group()
@@ -196,6 +198,7 @@ class Level:
     def check_death(self):
         # игрок упал с платформы и ушёл под экран
         if self.player.sprite.rect.top > screen_height:
+            self.game_over_func()
             self.create_overworld(self.current_level, 0)
 
     def check_win(self):

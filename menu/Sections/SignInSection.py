@@ -1,5 +1,6 @@
 import pygame
 
+from create_path_on_platform import *
 from ..Bars.DefaultBar import DefaultBar
 from .AbstractSection import AbstractSection
 from ..Bars.LabelBar import LabelBar
@@ -124,7 +125,7 @@ class SignInSection(AbstractSection):
             'Empty_700px.png'
         )
         pygame.font.init()
-        my_font = pygame.font.Font('fonts\\' + config_parse()["font"], 16)
+        my_font = pygame.font.Font(create_path_on_platform('fonts\\' + config_parse()["font"]), 16)
         text_surface = my_font.render(
             self.debug_line,
             False,

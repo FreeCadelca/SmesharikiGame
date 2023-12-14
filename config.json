@@ -1,5 +1,5 @@
 {
-    "Music volume": 100,
+    "Music volume": 25,
     "VFX volume": 100,
     "controls": {
         "Left": "K_a",
@@ -8,6 +8,6 @@
     },
     "spacing": 5,
     "font": "ARCADEPI.TTF",
-    "coins": 182,
+    "coins": 196,
     "current_user": "FreeCadelca"
 }

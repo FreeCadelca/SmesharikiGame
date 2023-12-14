@@ -1,0 +1,16 @@
+pygame
+Pillow==9.5.0
+certifi
+charset-normalizer
+colorama
+decorator==4.4.2
+idna
+imageio
+imageio-ffmpeg
+numpy
+proglog
+requests
+setuptools
+tqdm
+urllib3
+moviepy

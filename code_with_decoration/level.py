@@ -47,7 +47,8 @@ class Level:
     - player_setup(self, layout, change_health):
         Sets up the player and the goal based on the layout.
     """
-    def __init__(self, current_level, surface, create_overworld, change_coins, change_health, game_over_func):
+    def __init__(self, current_level, surface,
+                 create_overworld, change_coins, change_health, game_over_func, send_coins_to_database):
         """
         Initializes the Level class with the specified parameters.
 
@@ -57,6 +58,7 @@ class Level:
         - create_overworld (function): Callback function to create the overworld.
         - change_coins (function): Callback function to change the coin count.
         - change_health (function): Callback function to change the player's health.
+        - send_coins_to_database (function): Callback function to send coins to server (database) after win
         """
         # общая настройка
         self.display_surface = surface
@@ -85,6 +87,7 @@ class Level:
         # user interface
         self.change_coins = change_coins
         self.game_over_func = game_over_func
+        self.send_coins_to_database = send_coins_to_database
 
         # explosion particles
         self.explosion_sprites = pygame.sprite.Group()
@@ -286,6 +289,7 @@ class Level:
         Checks if the player collides with the goal, triggering a level transition.
         """
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
+            self.send_coins_to_database()
             self.create_overworld(self.current_level, self.new_max_level)
 
     def check_coin_collisions(self):

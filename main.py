@@ -32,13 +32,15 @@ class Game:
 
     def create_level(self, current_level):
         self.level = Level(current_level, screen, self.create_overworld, self.change_coins, self.change_health,
-                           self.game_over)
+                           self.game_over, self.send_coins_to_database)
         self.status = 'level'
         self.overworld_music.stop()
         self.level_music.play(loops=-1)
         self.level_music.set_volume(config_parse()["Music volume"] / 100)
 
     def create_menu(self):
+        if self.status == 'overworld':
+            self.overworld_music.stop()
         self.status = 'menu'
         self.menu = Menu(screen, self.create_overworld, self.max_level)
 
@@ -61,6 +63,16 @@ class Game:
             self.game_over()
 
     def game_over(self):
+        self.send_coins_to_database()
+        self.cur_health = 100
+        self.coins = 0
+        self.overworld = Overworld(0, self.max_level, screen, self.create_level, self.create_menu)
+        self.status = 'overworld'
+        self.level_music.stop()
+        self.overworld_music.play(-1)
+        self.overworld_music.set_volume(config_parse()["Music volume"] / 100)
+
+    def send_coins_to_database(self):
         config_edit(['coins'], self.coins + config_parse()['coins'])
         response = client.request_to_server(
             json.dumps(
@@ -70,13 +82,6 @@ class Game:
                 }
             )
         )
-        self.cur_health = 100
-        self.coins = 0
-        self.overworld = Overworld(0, self.max_level, screen, self.create_level, self.create_menu)
-        self.status = 'overworld'
-        self.level_music.stop()
-        self.overworld_music.play(-1)
-        self.overworld_music.set_volume(config_parse()["Music volume"] / 100)
 
     def run(self, events):
         if self.status == 'menu':

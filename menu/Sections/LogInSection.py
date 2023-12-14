@@ -120,7 +120,7 @@ class LogInSection(AbstractSection):
             'Empty_700px.png'
         )
         pygame.font.init()
-        my_font = pygame.font.Font(create_path_on_platform('fonts\\' + config_parse()["font"]), 16)
+        my_font = pygame.font.Font(create_path_on_platform('fonts/' + config_parse()["font"]), 16)
         text_surface = my_font.render(
             self.debug_line,
             False,

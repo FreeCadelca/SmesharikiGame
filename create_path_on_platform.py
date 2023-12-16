@@ -10,9 +10,6 @@ def create_path_on_platform(path: str):
 
     Returns:
         str: The modified path (replacing '/' with '\\' on Windows).
-
-    Raises:
-        None.
     """
     if platform.system() != 'Windows' or '\\' in path:
         return path

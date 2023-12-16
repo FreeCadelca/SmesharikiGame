@@ -428,6 +428,9 @@ PYGAME_CONSTANT_TO_STR = {
 }
 
 """
+There are 5 dictionaries here, which are used for various conversions related to keys and pygame. 
+The conversion methods are shown below
+
                        scancode -----→ to determine the click
                          |
                SCANCODES |

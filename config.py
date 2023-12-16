@@ -3,26 +3,24 @@ import json
 
 def config_parse():
     """
-        Parses the config file and returns it as a dictionary.
+    Parses the config file and returns it as a dictionary.
 
-        Returns:
+    Returns:
         dict: The parsed content of the config file.
-
     """
-
     with open('config.json') as cfg:
         return json.loads(cfg.read())
 
 
 def config_edit(field: list, value):
     """
-        Edits the value in the specified field in the config file.
+    Edits the value in the specified field in the config file.
 
-        Args:
+    Args:
         field (list): The list representing the field hierarchy in the config file.
         value: The new value to be written into the specified field.
 
-        Example:
+    Example:
         >>> config_edit(["controls", "Left"], "K_LEFT")
         # Writes "K_LEFT" into field cfg["controls"]["Left"]
     """
@@ -39,9 +37,9 @@ def config_edit(field: list, value):
 
 def replace_config(new_config: dict):
     """
-        Replaces the entire content of the config file with the new configuration.
+    Replaces the entire content of the config file with the new configuration.
 
-        Args:
+    Args:
         new_config (dict): The new configuration to replace the existing content of the config file.
     """
     with open('config.json', mode="w") as cfg:

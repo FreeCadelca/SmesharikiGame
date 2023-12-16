@@ -7,12 +7,31 @@ from code_with_decoration.screen_settings import *
 from config import *
 from pygame_dicts import *
 
+"""
+This class processes the "Settings" section for the application
+
+Attributes:
+    BARS_SETTINGS (list): list containing names of bars in "Settings" section.
+    BARS_SETTINGS_TYPE (list): list containing types of bars in "Settings" section.
+    max_bars (int): maximum number of bars for the section.
+    single_space (int): spacing for the bars.
+    state (int): state of choosing key. 
+    0 - not choosing, 1,2,3 - choosing key for movement to the left, right, jump accordingly
+
+Methods:
+    input: method to handle user input
+    setup_bars: method for drawing sprites
+"""
+
 
 class SettingsSection(AbstractSection):
     BARS_SETTINGS = ['Music volume', 'VFX volume', 'Left', 'Right', 'Jump', 'Back']
     BARS_SETTINGS_TYPE = [IncrementBar, IncrementBar, LabelBar, LabelBar, LabelBar, LabelBar]
 
     def __init__(self):
+        """
+        The constructor for Settings class.
+        """
         super().__init__()
         self.max_bars = 6
         self.state = 0  # 0 - default, 1,2,3 - choosing key for movement to the left, right, jump accordingly
@@ -58,6 +77,19 @@ class SettingsSection(AbstractSection):
             self.bars.append(new_bar)
 
     def input(self, keys, last_pressed_keys, id_current_section, events, client):
+        """
+        Method to handle user input
+
+        Args:
+            keys (dict): dictionary representing the pressed keys
+            last_pressed_keys: dictionary representing the last pressed keys
+            id_current_section (int): the current section id
+            events: list of events in Pygame
+            client (Client): the client object
+
+        Returns:
+            id_current_section (int): the updated current section id
+        """
         if self.state == 0:  # if self.state == 0
             super().input(keys, last_pressed_keys, id_current_section, events, client)
             if keys[pygame.K_RIGHT] and not last_pressed_keys[pygame.K_RIGHT]:
@@ -111,7 +143,15 @@ class SettingsSection(AbstractSection):
                     last_pressed_keys[i] = False
             return id_current_section
 
-    def setup_bars(self, bars_sprites, cfg):
+    def setup_bars(self, bars_sprites, cfg: dict):
+        """
+        Method to set up all bars in the 'Settings' section and append these sprites to bars_sprites,
+        transmitted from Menu.
+
+        Args:
+            bars_sprites: the sprite group for bars from menu
+            cfg (dict): dictionary of game configuration for the bars
+        """
         super().setup_bars(bars_sprites, cfg)
 
         for i in self.bars:

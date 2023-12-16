@@ -8,10 +8,27 @@ from code_with_decoration.screen_settings import *
 from config import *
 
 
+"""
+This class processes the "Main menu" section for the application
+
+Attributes:
+    BARS_MAIN_MENU (list): list containing names of bars in "Main menu" section.
+    max_bars (int): maximum number of bars for the section.
+    single_space (int): spacing for the bars.
+
+Methods:
+    input: method to handle user input
+    setup_bars: method for drawing sprites
+"""
+
+
 class MainMenuSection(AbstractSection):
     BARS_MAIN_MENU = ['Play', 'Account', 'Settings', 'About us']
 
     def __init__(self):
+        """
+        The constructor for SignInSection class.
+        """
         super().__init__()
         self.max_bars = 4
         cfg = config_parse()
@@ -29,6 +46,21 @@ class MainMenuSection(AbstractSection):
             self.bars.append(new_bar)
 
     def input(self, keys, last_pressed_keys, id_current_section, events, client):
+        """
+        Method to handle user input. Returns updated id_current_section, because we cannot rewrite int attribute
+        of class Menu (self.id_current_section) bcs it mutable, so I return a new self.id_current_section value
+        and assign it to the original each time, then check if something has changed
+
+        Args:
+            keys (dict): dictionary representing the pressed keys
+            last_pressed_keys: dictionary representing the last pressed keys
+            id_current_section (int): the current section id
+            events: list of events in Pygame
+            client (Client): the client object
+
+        Returns:
+            id_current_section (int): the updated current section id
+        """
         super().input(keys, last_pressed_keys, id_current_section, events, client)
         if keys[pygame.K_RETURN] and not last_pressed_keys[pygame.K_RETURN]:
             if self.current_bar == 0:
@@ -44,11 +76,16 @@ class MainMenuSection(AbstractSection):
             if not keys[i]:
                 last_pressed_keys[i] = False
         return id_current_section
-        # we cannot rewrite int attribute of class Menu (self.id_current_section) bcs it mutable,
-        # so I return a new self.id_current_section value and assign it to the original each time,
-        # then check if something has changed
 
-    def setup_bars(self, bars_sprites: pygame.sprite.Group, cfg):
+    def setup_bars(self, bars_sprites, cfg: dict):
+        """
+        Method to set up all bars in the 'Main menu' section and append these sprites to bars_sprites,
+        transmitted from Menu.
+
+        Args:
+            bars_sprites: the sprite group for bars from menu
+            cfg (dict): dictionary of game configuration for the bars
+        """
         super().setup_bars(bars_sprites, cfg)
         for i in self.bars:
             bars_sprites.add(i)

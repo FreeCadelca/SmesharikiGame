@@ -58,7 +58,8 @@ class Level:
         - create_overworld (function): Callback function to create the overworld.
         - change_coins (function): Callback function to change the coin count.
         - change_health (function): Callback function to change the player's health.
-        - send_coins_to_database (function): Callback function to send coins to server (database) after win
+        - game_over_func (function): Function to callback game_over method in class Game.
+        - send_coins_to_database (function): Callback function to send coins to server (database) after win.
         """
         # общая настройка
         self.display_surface = surface

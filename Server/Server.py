@@ -1,10 +1,33 @@
 import json
 import socket
 import sqlite3
+import unittest
+
+"""
+Represents a server.
+
+Attributes:
+    ip (str): The IP address of the server to be run.
+    port (int): The port of the IP address.
+    database_name (str): The name of the database being used. Default is DatabaseOfAccounts.sqlite3.
+
+Methods:
+    sender: sends an encoded message to a user.
+    run: starts an endless server loop in which it waits for a message from the client and processes it
+    listen: processes a message from the client
+"""
 
 
 class Server:
     def __init__(self, ip: str, port: int, database_name: str = "DatabaseOfAccounts.sqlite3"):
+        """
+        Initializes a new Server object.
+
+        Args:
+            ip (str): The IP address of the server to be run.
+            port (int): The port of the IP address.
+            database_name (str): The name of the database being used. Default is "DatabaseOfAccounts.sqlite3".
+        """
         self.database_name = database_name
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((ip, port))
@@ -12,15 +35,31 @@ class Server:
         self.server.listen(3)
 
     def sender(self, user: socket.socket, text: str):
+        """
+        Sends a message to a user.
+
+        Args:
+            user (socket.socket): The user to which the message should be sent.
+            text (str): The text of the message to be sent.
+        """
         user.send(text.encode('utf-8'))
 
     def run(self):
+        """
+        Runs the server.
+        """
         while True:
             user, address = self.server.accept()
             print(f'Client connected\n\tip: {address[0]}\n\tport: {address[1]}')
             self.listen(user)
 
     def listen(self, user: socket.socket):
+        """
+        Listens for messages from a user and processes the message.
+
+        Args:
+            user (socket.socket): The client user being connected.
+        """
         is_work = True
         while is_work:
             data = ''

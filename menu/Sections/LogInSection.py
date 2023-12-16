@@ -10,15 +10,35 @@ from config import *
 from hash import *
 
 
+"""
+This class processes the "Log in" section for the application and processes log in request, sending to the server
+
+Attributes:
+    BARS_LOGIN (list): list containing names of bars in "Log in" section.
+    max_bars (int): maximum number of bars for the account section.
+    single_space (int): spacing for the bars.
+    typing_text(list): typing text in fields login and password (behind stars)
+    state_of_entering_text (int): id of the field in which the user writes
+    debug_line (str): error text displayed to the user in the lower left corner
+    
+Methods:
+    input: method to handle user input
+    setup_bars: method for drawing sprites
+"""
+
+
 class LogInSection(AbstractSection):
     BARS_LOGIN = ['Enter login...', 'Enter password...', 'Confirm', 'Back']
 
     def __init__(self):
+        """
+        The constructor for LogInSection class.
+        """
         super().__init__()
         cfg = config_parse()
         self.max_bars = len(LogInSection.BARS_LOGIN)
         self.single_space = cfg['spacing']
-        self.typing_text = ['', '']  # text under stars in fields login, password
+        self.typing_text = ['', '']  # text in fields login, password (behind stars)
         self.state_of_entering_text = 0
         self.debug_line = ''
         # the state when the text is entered in the field.
@@ -49,6 +69,22 @@ class LogInSection(AbstractSection):
             self.bars.append(new_bar)
 
     def input(self, keys, last_pressed_keys, id_current_section, events, client):
+        """
+        Method to handle user input.
+        In case of an authorization attempt, the method sends a "LogIn <Login> <hashed_password>" request
+        to the server and changes the game config file depending on the server response.
+        Displays errors on the screen in the corner, if any
+
+        Args:
+            keys: dictionary representing the pressed keys
+            last_pressed_keys: dictionary representing the last pressed keys
+            id_current_section (int): the current section id
+            events: list of events in Pygame
+            client (Client): the client object
+
+        Returns:
+            id_current_section (int): the updated current section id
+        """
         super().input(keys, last_pressed_keys, id_current_section, events, client)
         if self.state_of_entering_text:  # if we are typing text
             id_field = self.state_of_entering_text - 1
@@ -101,7 +137,15 @@ class LogInSection(AbstractSection):
                     last_pressed_keys[i] = False
         return id_current_section
 
-    def setup_bars(self, bars_sprites, cfg):
+    def setup_bars(self, bars_sprites, cfg: dict):
+        """
+        Method to set up all bars in the 'Log in' section and append these sprites to bars_sprites,
+        transmitted from Menu.
+
+        Args:
+            bars_sprites: the sprite group for bars from menu
+            cfg (dict): dictionary of game configuration for the bars
+        """
         super().setup_bars(bars_sprites, cfg)
         for i in self.bars:
             bars_sprites.add(i)

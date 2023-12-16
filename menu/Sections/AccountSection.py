@@ -8,10 +8,28 @@ from code_with_decoration.screen_settings import *
 from config import *
 
 
+"""
+This class handles the account section for the application.
+
+Attributes:
+    BARS_ACCOUNT (list): list containing all names of nested sections for the account section.
+    variety_bars (list): list containing names of nested sections for the account section.
+    max_bars (int): maximum number of bars for the account section.
+    single_space (int): spacing for the account bars.
+
+Methods:
+    input: method to handle user input
+    setup_bars: method for drawing sprites
+"""
+
+
 class AccountSection(AbstractSection):
     BARS_ACCOUNT = ['Log in', 'Sign in', 'Log out', 'Back']
 
     def __init__(self):
+        """
+        The constructor for AccountSection class.
+        """
         super().__init__()
         cfg = config_parse()
         self.variety_bars = ["Account: " + cfg["current_user"], "Coins: " + str(cfg["coins"])]
@@ -46,6 +64,19 @@ class AccountSection(AbstractSection):
             self.bars.append(new_bar)
 
     def input(self, keys, last_pressed_keys, id_current_section, events, client):
+        """
+        Method to handle user input.
+
+        Args:
+            keys: dictionary representing the pressed keys
+            last_pressed_keys: dictionary representing the last pressed keys
+            id_current_section (int): the current section id
+            events: list of events in Pygame
+            client (Client): the client object
+
+        Returns:
+            id_current_section (int): the updated current section id
+        """
         super().input(keys, last_pressed_keys, id_current_section, events, client)
         if keys[pygame.K_RETURN] and not last_pressed_keys[pygame.K_RETURN]:
             bar = self.variety_bars[self.current_bar]
@@ -73,7 +104,15 @@ class AccountSection(AbstractSection):
                 last_pressed_keys[i] = False
         return id_current_section
 
-    def setup_bars(self, bars_sprites, cfg):
+    def setup_bars(self, bars_sprites, cfg: dict):
+        """
+        Method to set up all bars in the 'Account' section and append these sprites to bars_sprites,
+        transmitted from Menu.
+
+        Args:
+            bars_sprites: the sprite group for bars from menu
+            cfg (dict): dictionary of game configuration for the bars
+        """
         super().setup_bars(bars_sprites, cfg)
         for i in self.bars:
             bars_sprites.add(i)

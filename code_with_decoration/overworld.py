@@ -22,6 +22,7 @@ class Node(pygame.sprite.Sprite):
     - animate(self): Animates the node by updating the frame index and image.
     - update(self): Updates the node, applying animations and handling locked status tinting.
     """
+
     def __init__(self, pos, status, icon_speed, path):
         """
         Initializes a new Node instance.
@@ -82,6 +83,7 @@ class Icon(pygame.sprite.Sprite):
     - __init__(self, pos): Initializes a new Icon instance.
     - update(self): Updates the position of the icon on the Overworld map.
     """
+
     def __init__(self, pos):
         """
         Initializes a new Icon instance.
@@ -132,6 +134,7 @@ class Overworld:
     - input_timer(self): Manages the input timer to control when player input is allowed.
     - run(self): Executes the main logic for updating the Overworld map, handling input, and rendering.
     """
+
     def __init__(self, start_level, max_level, surface, create_level, create_menu):
         """
         Initializes a new Overworld instance.

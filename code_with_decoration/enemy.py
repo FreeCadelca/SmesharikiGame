@@ -18,6 +18,7 @@ class Enemy(AnimatedTiles):
     - reverse(self): Reverses the movement direction of the enemy.
     - update(self, shift): Updates the position and animation of the enemy.
     """
+
     def __init__(self, size, x, y):
         """
         Initializes a new Enemy instance.

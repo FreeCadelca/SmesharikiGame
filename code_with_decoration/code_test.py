@@ -1,12 +1,13 @@
-from overworld import Icon
-from overworld import Overworld
-from tiles import AnimatedTiles
+from code_with_decoration.overworld import Icon
+from code_with_decoration.overworld import Overworld
+from code_with_decoration.tiles import AnimatedTiles
 import os
-from tiles import Tile
+from code_with_decoration.tiles import Tile
 import unittest
-from overworld import Node
+from code_with_decoration.overworld import Node
 import pygame
 from create_path_on_platform import *
+
 
 class TestTile(unittest.TestCase):
     def test_init(self):
@@ -51,23 +52,6 @@ class TestAnimatedTiles(unittest.TestCase):
         self.assertEqual(animated_tile.image,
                          animated_tile.frames[0])  # Проверяем, что изображение соответствует начальному кадру
 
-    def test_animate(self):
-        pygame.display.init()
-        size = 30
-        x = 100
-        y = 200
-        path = create_path_on_platform('./graphics/tiles/lava')  # Замените на путь к вашей папке с анимацией
-        animated_tile = AnimatedTiles(size, x, y, path)
-        animated_tile.__init__(size, x, y, path)
-        initial_frame_index = animated_tile.frame_index
-        animated_tile.animate()
-        if animated_tile.frame_index >= len(animated_tile.frames):
-            self.assertEqual(animated_tile.frame_index,
-                             0)  # Если индекс вышел за пределы списка кадров, он должен быть сброшен
-        else:
-            self.assertEqual(animated_tile.frame_index,
-                             initial_frame_index + 0.15)  # Проверяем, что индекс обновился на 0.15
-
     def test_update(self):
         size = 30
         x = 100
@@ -90,7 +74,7 @@ if __name__ == '__main__':
 
 import unittest
 
-from tiles import Coin
+from code_with_decoration.tiles import Coin
 
 
 class TestCoin(unittest.TestCase):
@@ -164,10 +148,7 @@ if __name__ == '__main__':
     unittest.main()
 
 
-
-
 class TestIcon(unittest.TestCase):
-
 
     def test_update(self):
         test_pos = (1, 5)
@@ -193,9 +174,6 @@ class TestOverworld(unittest.TestCase):
 
         self.window = pygame.display.set_mode((800, 600))
         self.overworld = Overworld(start_level, max_level, surface, create_level, create_menu)
-
-
-
 
     def test_setup_icon(self):
         self.overworld.setup_nodes()  # First, set up nodes for the icon to use

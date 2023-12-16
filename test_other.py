@@ -254,7 +254,6 @@ class TestIncrementBar(unittest.TestCase):
         self.assertEqual(bar.rect.center, (0, 0))
 
 
-
 class TestLabelBar(unittest.TestCase):
     def setUp(self):
         pygame.init()

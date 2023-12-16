@@ -18,6 +18,7 @@ class Sky:
     - __init__(self, horizon): Initializes a new Sky instance.
     - draw(self, surface): Draws the sky on the specified surface.
     """
+
     def __init__(self, horizon):
         """
         Initializes a new Sky instance.
@@ -62,6 +63,7 @@ class Lava:
     - __init__(self, top, level_width): Initializes a new Lava instance.
     - draw(self, surface, shift): Draws the lava on the specified surface with a horizontal shift.
     """
+
     def __init__(self, top, level_width):
         """
         Initializes a new Lava instance.
@@ -104,6 +106,7 @@ class Clouds:
     - __init__(self, horizon, level_width, cloud_number): Initializes a new Clouds instance.
     - draw(self, surface, shift): Draws the clouds on the specified surface with a horizontal shift.
     """
+
     def __init__(self, horizon, level_width, cloud_number):
         """
         Initializes a new Clouds instance.

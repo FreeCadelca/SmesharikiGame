@@ -21,6 +21,7 @@ class UI:
     - show_health(self, current, full): Displays the health bar on the UI.
     - show_coins(self, amount): Displays the coin image and amount on the UI.
     """
+
     def __init__(self, surface):
         """
         Initializes a new UI instance.

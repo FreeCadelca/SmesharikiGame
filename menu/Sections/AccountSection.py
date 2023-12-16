@@ -7,7 +7,6 @@ from ..Bars.LabelBar import LabelBar
 from code_with_decoration.screen_settings import *
 from config import *
 
-
 """
 This class handles the account section for the application.
 

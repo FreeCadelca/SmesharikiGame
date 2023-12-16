@@ -14,6 +14,7 @@ class Tile(pygame.sprite.Sprite):
     - __init__(self, size, x, y): Initializes a new Tile instance.
     - update(self, shift): Updates the position of the tile with a horizontal shift.
     """
+
     def __init__(self, size, x, y):
         """
         Initializes a new Tile instance.
@@ -47,6 +48,7 @@ class StaticTile(Tile):
     Methods:
     - __init__(self, size, x, y, surface): Initializes a new StaticTile instance.
     """
+
     def __init__(self, size, x, y, surface):
         """
         Initializes a new StaticTile instance.
@@ -74,6 +76,7 @@ class AnimatedTiles(Tile):
     - animate(self): Animates the tile by changing its image.
     - update(self, shift): Updates the position and animation of the tile with a horizontal shift.
     """
+
     def __init__(self, size, x, y, path):
         """
         Initializes a new AnimatedTiles instance.
@@ -119,6 +122,7 @@ class Coin(AnimatedTiles):
     Methods:
     - __init__(self, size, x, y, path, value): Initializes a new Coin instance.
     """
+
     def __init__(self, size, x, y, path, value):
         """
         Initializes a new Coin instance.

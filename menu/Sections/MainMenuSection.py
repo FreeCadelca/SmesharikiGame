@@ -7,7 +7,6 @@ from .AbstractSection import AbstractSection
 from code_with_decoration.screen_settings import *
 from config import *
 
-
 """
 This class processes the "Main menu" section for the application
 

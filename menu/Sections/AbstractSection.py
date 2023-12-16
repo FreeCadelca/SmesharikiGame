@@ -2,7 +2,6 @@ import pygame
 from ..Bars.DefaultBar import DefaultBar
 from ..Bars.IncrementBar import IncrementBar
 
-
 """
 This is an abstract class that provides a general description for specific section classes
 to inherit from, enabling interaction with each class in the same way (polymorphism).
@@ -16,6 +15,8 @@ Methods:
     input: method to handle user input
     setup_bars: method for drawing sprites
 """
+
+
 class AbstractSection:
     def __init__(self):
         """

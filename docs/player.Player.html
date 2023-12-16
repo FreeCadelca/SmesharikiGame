@@ -1,0 +1,1603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>player.Player</title>
+    <meta name="generator" content="pydoctor 23.9.1"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default mainnavbar">
+      
+  
+  <div class="container-fluid">
+
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          SettingsSection/AbstractSection/menu_test/IncrementBar/pygame_dicts/SignInSection/tiles/hash/config/AboutUsSection/screen_settings/create_path_on_platform/overworld/test_other/enemy/game_data/main/Client/level/ui/Server/MainMenuSection/LogInSection/support/menu/DefaultBar/decoration/AccountSection/test_Player/LabelBar/player <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="search-results-container" style="display: none;">
+        
+        <div id="search-buttons">
+          <span class="label label-default" id="search-docstrings-button">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+              search in docstrings
+            </input>
+          </label>
+          </span>
+          
+        </div>
+        
+        <noscript>
+            <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+        </noscript>
+
+        <div class="hint" id="search-help-box">
+          <p class="rst-last">
+      
+            Search bar offers the following options:
+            <ul>   
+                <li>
+                  <strong>Term presence.</strong> The below example searches for documents that 
+                    must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
+                </li> 
+
+                <li>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
+                </li> 
+
+                <li>
+                  <strong>Search in specific fields.</strong> The following search matches all objects 
+                  in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
+
+                  <p>
+                    Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                    Last two fields are only applicable if "search in docstrings" is enabled.
+                  </p>
+                </li>
+
+                <li>
+                  <strong>Fuzzy matches.</strong> The following search matches all documents 
+                  that have a word within 1 edit distance of “foo”: <code>foo~1</code>
+                </li>
+            </ul>
+
+          </p>
+        </div>
+
+        <div id="search-status"> </div>
+
+        <div class="warning" id="search-warn-box" style="display: none;">
+          <p class="rst-last"><span id="search-warn"></span></p>
+        </div>
+
+        <table id="search-results">
+          <!-- Filled dynamically by JS -->
+        </table>
+        
+        <div style="margin-top: 8px;">
+          <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</nav>
+    
+    <div class="container-fluid">
+
+      <!-- Side navigation -->
+      <div class="sidebarcontainer" style="display: none;">
+        
+        <div class="sidebar"><nav class="sidebar">
+  
+
+  <div>
+
+      <div class="thingTitle">
+        <span>Class</span>
+        <code class="thisobject"><a href="player.Player.html" class="internal-link" title="This class"><wbr></wbr>Player</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Methods</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__init__" class="internal-link" title="player.Player.__init__">__init__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#animate" class="internal-link" title="player.Player.animate">animate</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#apply_gravity" class="internal-link" title="player.Player.apply_gravity">apply<wbr></wbr>_gravity</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#get_damage" class="internal-link" title="player.Player.get_damage">get<wbr></wbr>_damage</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#get_input" class="internal-link" title="player.Player.get_input">get<wbr></wbr>_input</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#get_status" class="internal-link" title="player.Player.get_status">get<wbr></wbr>_status</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#import_character_assets" class="internal-link" title="player.Player.import_character_assets">import<wbr></wbr>_character<wbr></wbr>_assets</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#invincibility_timer" class="internal-link" title="player.Player.invincibility_timer">invincibility<wbr></wbr>_timer</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#jump" class="internal-link" title="player.Player.jump">jump</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#update" class="internal-link" title="player.Player.update">update</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#wave_value" class="internal-link" title="player.Player.wave_value">wave<wbr></wbr>_value</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Attributes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#animation_speed" class="internal-link" title="player.Player.animation_speed">animation<wbr></wbr>_speed</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#animations" class="internal-link" title="player.Player.animations">animations</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#change_health" class="internal-link" title="player.Player.change_health">change<wbr></wbr>_health</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#direction" class="internal-link" title="player.Player.direction">direction</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#display_surface" class="internal-link" title="player.Player.display_surface">display<wbr></wbr>_surface</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#facing_right" class="internal-link" title="player.Player.facing_right">facing<wbr></wbr>_right</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#frame_index" class="internal-link" title="player.Player.frame_index">frame<wbr></wbr>_index</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#gravity" class="internal-link" title="player.Player.gravity">gravity</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#hit_sound" class="internal-link" title="player.Player.hit_sound">hit<wbr></wbr>_sound</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#hurt_time" class="internal-link" title="player.Player.hurt_time">hurt<wbr></wbr>_time</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#image" class="internal-link" title="player.Player.image">image</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#invincibility_duration" class="internal-link" title="player.Player.invincibility_duration">invincibility<wbr></wbr>_duration</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#invincible" class="internal-link" title="player.Player.invincible">invincible</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#jump_sound" class="internal-link" title="player.Player.jump_sound">jump<wbr></wbr>_sound</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#jump_speed" class="internal-link" title="player.Player.jump_speed">jump<wbr></wbr>_speed</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#on_ceiling" class="internal-link" title="player.Player.on_ceiling">on<wbr></wbr>_ceiling</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#on_ground" class="internal-link" title="player.Player.on_ground">on<wbr></wbr>_ground</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#on_left" class="internal-link" title="player.Player.on_left">on<wbr></wbr>_left</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#on_right" class="internal-link" title="player.Player.on_right">on<wbr></wbr>_right</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#rect" class="internal-link" title="player.Player.rect">rect</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#speed" class="internal-link" title="player.Player.speed">speed</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#status" class="internal-link" title="player.Player.status">status</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Module</span>
+        <code><a href="player.html" class="internal-link" title="The parent of this class">player</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="player.Player.html" class="internal-link" title="player.Player"><wbr></wbr>Player</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        
+         
+
+        
+         
+
+        
+         
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
+        </div>
+        <div id="collapseSideBar">
+          <a class="btn btn-link" onclick="toggleSideBarCollapse()" title="Toggle Sidebar Collapse">
+          </a>
+        </div> 
+        <script src="sidebartoggle.js" type="text/javascript"></script>
+       
+      </div>
+
+      <div id="main" class="">
+        
+
+        
+
+        <div class="page-header">
+          <h1 class="class"><code><code><a href="player.html" class="internal-link">player</a></code><wbr></wbr>.<code><a href="player.Player.html" class="internal-link" title="player.Player">Player</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
+
+        <div class="categoryHeader">
+          class documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">Player</span>(pygame.sprite.Sprite):</code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="player.Player.__init__">Player(pos, surface, change_health)</a></code></p>
+          <p><a href="classIndex.html#player.Player">View In Hierarchy</a></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p class="pre">The Player class represents the main character in the game.
+
+Attributes:
+- pos (tuple): The initial position of the player on the screen.
+- surface (pygame.Surface): The display surface where the player is rendered.
+- change_health (function): A function to change the player's health.
+
+Methods:
+- __init__(self, pos, surface, change_health): Initializes the player with the given position, surface, and health-changing function.
+- import_character_assets(self): Imports character animations from the specified folder.
+- animate(self): Animates the player based on the current status (idle, run, jump, fall).
+- get_input(self): Handles user input for movement and jumping.
+- get_status(self): Determines the current status of the player (idle, run, jump, fall).
+- apply_gravity(self): Applies gravity to the player's vertical movement.
+- jump(self): Initiates a jump, plays jump sound, and adjusts vertical speed.
+- get_damage(self): Inflicts damage on the player and triggers invincibility if not already invincible.
+- invincibility_timer(self): Manages the duration of invincibility after taking damage.
+- wave_value(self): Generates a sine wave value for controlling image alpha during invincibility.
+- update(self): Updates the player's state based on input, status, and animations.</p></div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id48">
+  
+  
+  <tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__init__" class="internal-link" title="player.Player.__init__">__init__</a></code></td>
+    <td>Initializes a new Player object.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#animate" class="internal-link" title="player.Player.animate">animate</a></code></td>
+    <td>Animates the player based on the current status, updating the frame index and image accordingly.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#apply_gravity" class="internal-link" title="player.Player.apply_gravity">apply<wbr></wbr>_gravity</a></code></td>
+    <td>Applies gravity to the player's vertical movement.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#get_damage" class="internal-link" title="player.Player.get_damage">get<wbr></wbr>_damage</a></code></td>
+    <td>Inflicts damage on the player, triggers invincibility, and plays the hit sound if the player is not already invincible.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#get_input" class="internal-link" title="player.Player.get_input">get<wbr></wbr>_input</a></code></td>
+    <td>Handles user input for movement and jumping, updating the player's direction and facing direction.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#get_status" class="internal-link" title="player.Player.get_status">get<wbr></wbr>_status</a></code></td>
+    <td>Determines the current status of the player (idle, run, jump, fall) based on the player's movement.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#import_character_assets" class="internal-link" title="player.Player.import_character_assets">import<wbr></wbr>_character<wbr></wbr>_assets</a></code></td>
+    <td>Imports character animations from the specified folder and stores them in a dictionary.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#invincibility_timer" class="internal-link" title="player.Player.invincibility_timer">invincibility<wbr></wbr>_timer</a></code></td>
+    <td>Manages the duration of invincibility after taking damage.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#jump" class="internal-link" title="player.Player.jump">jump</a></code></td>
+    <td>Initiates a jump, plays the jump sound, and adjusts the player's vertical speed.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#update" class="internal-link" title="player.Player.update">update</a></code></td>
+    <td>Updates the player's state based on input, status, animations, invincibility, and wave value.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#wave_value" class="internal-link" title="player.Player.wave_value">wave<wbr></wbr>_value</a></code></td>
+    <td>Generates a sine wave value for controlling image alpha during invincibility.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#animation_speed" class="internal-link" title="player.Player.animation_speed">animation<wbr></wbr>_speed</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#animations" class="internal-link" title="player.Player.animations">animations</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#change_health" class="internal-link" title="player.Player.change_health">change<wbr></wbr>_health</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#direction" class="internal-link" title="player.Player.direction">direction</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#display_surface" class="internal-link" title="player.Player.display_surface">display<wbr></wbr>_surface</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#facing_right" class="internal-link" title="player.Player.facing_right">facing<wbr></wbr>_right</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#frame_index" class="internal-link" title="player.Player.frame_index">frame<wbr></wbr>_index</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#gravity" class="internal-link" title="player.Player.gravity">gravity</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#hit_sound" class="internal-link" title="player.Player.hit_sound">hit<wbr></wbr>_sound</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#hurt_time" class="internal-link" title="player.Player.hurt_time">hurt<wbr></wbr>_time</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#image" class="internal-link" title="player.Player.image">image</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#invincibility_duration" class="internal-link" title="player.Player.invincibility_duration">invincibility<wbr></wbr>_duration</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#invincible" class="internal-link" title="player.Player.invincible">invincible</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#jump_sound" class="internal-link" title="player.Player.jump_sound">jump<wbr></wbr>_sound</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#jump_speed" class="internal-link" title="player.Player.jump_speed">jump<wbr></wbr>_speed</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#on_ceiling" class="internal-link" title="player.Player.on_ceiling">on<wbr></wbr>_ceiling</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#on_ground" class="internal-link" title="player.Player.on_ground">on<wbr></wbr>_ground</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#on_left" class="internal-link" title="player.Player.on_left">on<wbr></wbr>_left</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#on_right" class="internal-link" title="player.Player.on_right">on<wbr></wbr>_right</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#rect" class="internal-link" title="player.Player.rect">rect</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#speed" class="internal-link" title="player.Player.speed">speed</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#status" class="internal-link" title="player.Player.status">status</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+
+            
+        </div>
+
+        <div id="childList">
+          <div class="basemethod">
+  
+  
+  <a name="player.Player.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, pos, surface, change_health)</span>:
+    
+    <a class="headerLink" href="#__init__" title="player.Player.__init__">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Initializes a new Player object.
+
+Args:
+- pos (tuple): The initial position (x, y) of the player on the screen.
+- surface (pygame.Surface): The display surface where the player is rendered.
+- change_health (function): A function to change the player's health.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="player.Player.animate">
+    
+  </a>
+  <a name="animate">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">animate</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#animate" title="player.Player.animate">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Animates the player based on the current status, updating the frame index and image accordingly.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="player.Player.apply_gravity">
+    
+  </a>
+  <a name="apply_gravity">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">apply_gravity</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#apply_gravity" title="player.Player.apply_gravity">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Applies gravity to the player's vertical movement.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="player.Player.get_damage">
+    
+  </a>
+  <a name="get_damage">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_damage</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#get_damage" title="player.Player.get_damage">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Inflicts damage on the player, triggers invincibility, and plays the hit sound if the player is not already invincible.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="player.Player.get_input">
+    
+  </a>
+  <a name="get_input">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_input</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#get_input" title="player.Player.get_input">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Handles user input for movement and jumping, updating the player's direction and facing direction.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="player.Player.get_status">
+    
+  </a>
+  <a name="get_status">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_status</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#get_status" title="player.Player.get_status">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Determines the current status of the player (idle, run, jump, fall) based on the player's movement.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="player.Player.import_character_assets">
+    
+  </a>
+  <a name="import_character_assets">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">import_character_assets</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#import_character_assets" title="player.Player.import_character_assets">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Imports character animations from the specified folder and stores them in a dictionary.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="player.Player.invincibility_timer">
+    
+  </a>
+  <a name="invincibility_timer">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">invincibility_timer</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#invincibility_timer" title="player.Player.invincibility_timer">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Manages the duration of invincibility after taking damage.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="player.Player.jump">
+    
+  </a>
+  <a name="jump">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">jump</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#jump" title="player.Player.jump">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Initiates a jump, plays the jump sound, and adjusts the player's vertical speed.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="player.Player.update">
+    
+  </a>
+  <a name="update">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">update</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#update" title="player.Player.update">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Updates the player's state based on input, status, animations, invincibility, and wave value.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="player.Player.wave_value">
+    
+  </a>
+  <a name="wave_value">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">wave_value</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#wave_value" title="player.Player.wave_value">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Generates a sine wave value for controlling image alpha during invincibility.</p></div>
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.animation_speed">
+    
+  </a>
+  <a name="animation_speed">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">animation_speed</span>: <code>float</code> =
+    
+    <a class="headerLink" href="#animation_speed" title="player.Player.animation_speed">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.animations">
+    
+  </a>
+  <a name="animations">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">animations</span>: <code>dict[<wbr></wbr>str, <wbr></wbr>list]</code> =
+    
+    <a class="headerLink" href="#animations" title="player.Player.animations">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.change_health">
+    
+  </a>
+  <a name="change_health">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">change_health</span> =
+    
+    <a class="headerLink" href="#change_health" title="player.Player.change_health">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.direction">
+    
+  </a>
+  <a name="direction">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">direction</span> =
+    
+    <a class="headerLink" href="#direction" title="player.Player.direction">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.display_surface">
+    
+  </a>
+  <a name="display_surface">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">display_surface</span> =
+    
+    <a class="headerLink" href="#display_surface" title="player.Player.display_surface">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.facing_right">
+    
+  </a>
+  <a name="facing_right">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">facing_right</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#facing_right" title="player.Player.facing_right">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.frame_index">
+    
+  </a>
+  <a name="frame_index">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">frame_index</span>: <code>int</code> =
+    
+    <a class="headerLink" href="#frame_index" title="player.Player.frame_index">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.gravity">
+    
+  </a>
+  <a name="gravity">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">gravity</span>: <code>float</code> =
+    
+    <a class="headerLink" href="#gravity" title="player.Player.gravity">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.hit_sound">
+    
+  </a>
+  <a name="hit_sound">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">hit_sound</span> =
+    
+    <a class="headerLink" href="#hit_sound" title="player.Player.hit_sound">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.hurt_time">
+    
+  </a>
+  <a name="hurt_time">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">hurt_time</span> =
+    
+    <a class="headerLink" href="#hurt_time" title="player.Player.hurt_time">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.image">
+    
+  </a>
+  <a name="image">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">image</span> =
+    
+    <a class="headerLink" href="#image" title="player.Player.image">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.invincibility_duration">
+    
+  </a>
+  <a name="invincibility_duration">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">invincibility_duration</span>: <code>int</code> =
+    
+    <a class="headerLink" href="#invincibility_duration" title="player.Player.invincibility_duration">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.invincible">
+    
+  </a>
+  <a name="invincible">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">invincible</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#invincible" title="player.Player.invincible">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.jump_sound">
+    
+  </a>
+  <a name="jump_sound">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">jump_sound</span> =
+    
+    <a class="headerLink" href="#jump_sound" title="player.Player.jump_sound">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.jump_speed">
+    
+  </a>
+  <a name="jump_speed">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">jump_speed</span>: <code>int</code> =
+    
+    <a class="headerLink" href="#jump_speed" title="player.Player.jump_speed">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.on_ceiling">
+    
+  </a>
+  <a name="on_ceiling">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">on_ceiling</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#on_ceiling" title="player.Player.on_ceiling">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.on_ground">
+    
+  </a>
+  <a name="on_ground">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">on_ground</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#on_ground" title="player.Player.on_ground">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.on_left">
+    
+  </a>
+  <a name="on_left">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">on_left</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#on_left" title="player.Player.on_left">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.on_right">
+    
+  </a>
+  <a name="on_right">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">on_right</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#on_right" title="player.Player.on_right">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.rect">
+    
+  </a>
+  <a name="rect">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">rect</span> =
+    
+    <a class="headerLink" href="#rect" title="player.Player.rect">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.speed">
+    
+  </a>
+  <a name="speed">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">speed</span>: <code>int</code> =
+    
+    <a class="headerLink" href="#speed" title="player.Player.speed">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="player.Player.status">
+    
+  </a>
+  <a name="status">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">status</span>: <code>str</code> =
+    
+    <a class="headerLink" href="#status" title="player.Player.status">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div>
+        </div>
+      
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for SettingsSection/AbstractSection/menu_test/IncrementBar/pygame_dicts/SignInSection/tiles/hash/config/AboutUsSection/screen_settings/create_path_on_platform/overworld/test_other/enemy/game_data/main/Client/level/ui/Server/MainMenuSection/LogInSection/support/menu/DefaultBar/decoration/AccountSection/test_Player/LabelBar/player,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    23.9.1 at 2023-12-16 11:05:52.
+  </div>
+
+  <!-- Search related scripts needs to be loaded at the end of HTML 
+    parsing not to introduce overhead and display HTML data asap -->
+  <script src="ajax.js" type="text/javascript"></script>
+  <script src="searchlib.js" type="text/javascript"></script>
+  <script src="search.js" type="text/javascript"></script>
+
+</footer>
+  
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>

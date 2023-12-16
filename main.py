@@ -146,7 +146,7 @@ class Game:
             self.check_game_over()
 
 
-client = Client('127.0.0.1', 4444)
+client = Client('127.0.0.1', 1234)
 
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))

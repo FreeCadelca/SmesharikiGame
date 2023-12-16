@@ -3,10 +3,9 @@ import json
 
 def config_parse():
     """
-    Parses the config file and returns it as a dictionary.
+    Read and parse the 'config.json' file.
 
-    Returns:
-        dict: The parsed content of the config file.
+    :return: Dictionary containing the parsed contents of the 'config.json' file.
     """
     with open('config.json') as cfg:
         return json.loads(cfg.read())
@@ -14,17 +13,18 @@ def config_parse():
 
 def config_edit(field: list, value):
     """
-    Edits the value in the specified field in the config file.
+    Edit the 'config.json' file by updating the specified field with the given value.
 
-    Args:
-        field (list): The list representing the field hierarchy in the config file.
-        value: The new value to be written into the specified field.
+    :param field: List containing the fields to be updated in the 'config.json' file.
+    :param value: The value to be assigned to the specified field.
 
-    Example:
-        >>> config_edit(["controls", "Left"], "K_LEFT")
-        # Writes "K_LEFT" into field cfg["controls"]["Left"]
+    If the length of the field list is 1, the function updates cfg_dict[field[0]] with the given value.
+    If the length of the field list is 2, the function updates cfg_dict[field[0]][field[1]] with the given value.
+
+    The updated contents are then written to the 'config.json' file.
+
+    :return: None
     """
-
     cfg_dict = config_parse()
     if len(field) == 1:
         cfg_dict[field[0]] = value
@@ -37,10 +37,15 @@ def config_edit(field: list, value):
 
 def replace_config(new_config: dict):
     """
-    Replaces the entire content of the config file with the new configuration.
+    Replace the contents of the 'config.json' file with the provided new_config.
 
-    Args:
-        new_config (dict): The new configuration to replace the existing content of the config file.
+    :param new_config: A dictionary containing the new configuration to replace the contents of the 'config.json' file.
+
+    The function opens the 'config.json' file in write mode and writes the new_config to the file in JSON format with
+    an indentation of 4.
+
+    :return: None
     """
+
     with open('config.json', mode="w") as cfg:
         cfg.write(json.dumps(new_config, indent=4))

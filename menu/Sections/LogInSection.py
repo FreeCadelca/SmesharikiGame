@@ -9,7 +9,6 @@ from code_with_decoration.screen_settings import *
 from config import *
 from hash import *
 
-
 """
 This class processes the "Log in" section for the application and processes log in request, sending to the server
 

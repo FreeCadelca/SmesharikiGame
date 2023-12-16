@@ -9,13 +9,17 @@ from os import walk
 
 def import_folder(path):
     """
-    Imports a list of surfaces from an entire folder of images.
+    This function imports images from the specified folder and returns a list of image surfaces.
 
-    Parameters:
-    - path (str): The path to the folder containing images.
+    :param path: The path of the folder containing the images to be imported.
+    :type path: str
+    :return: List of image surfaces
+    :rtype: list
+    :raises: OSError if the path does not exist or other file-related errors
 
-    Returns:
-    - list: A list of pygame.Surface objects.
+    The function iterates through the files in the specified folder and loads each image, converting it to
+    a surface using the `pygame` library. The resulting image surfaces are then appended to the surface_list,
+    which is returned after all images have been processed.
     """
     surface_list = []
     for _, __, image_files in walk(path):
@@ -28,13 +32,17 @@ def import_folder(path):
 
 def import_csv_layout(path):
     """
-    Imports a 2D list representing a level layout from a CSV file.
+    This function imports a CSV file containing a ground map layout and returns the map as a 2D list.
 
-    Parameters:
-    - path (str): The path to the CSV file.
+    :param path: The path of the CSV file to be imported.
+    :type path: str
+    :return: 2D list representing the ground map layout
+    :rtype: list
+    :raises: FileNotFoundError if the file does not exist, or other file-related errors
 
-    Returns:
-    - list: A 2D list representing the level layout.
+    The function first converts the 'path' to a platform-specific path using the 'create_path_on_platform' function.
+    It then opens the file and uses the 'csv.reader' to read the CSV data, appending each row as a list to the
+    'ground_map' list. The resulting 2D list representing the ground map layout is then returned.
     """
     path = create_path_on_platform(path)
     ground_map = []
@@ -47,13 +55,20 @@ def import_csv_layout(path):
 
 def import_cut_graphics(path):
     """
-    Imports a list of cut tiles from a single image.
+    This function imports a graphic file, cuts it into smaller tile-sized surfaces, and returns a list of these cut tiles.
 
-    Parameters:
-    - path (str): The path to the image containing cut tiles.
+    :param path: The path of the graphic file to be imported.
+    :type path: str
+    :return: List of tile-sized surfaces
+    :rtype: list
+    :raises: FileNotFoundError if the file does not exist, or other file-related errors
 
-    Returns:
-    - list: A list of pygame.Surface objects representing cut tiles.
+    The function first converts the 'path' to a platform-specific path using the 'create_path_on_platform' function.
+    It then uses the 'pygame' library to load the image from the specified path and convert it to an alpha surface.
+    The function then determines the number of tiles in the x and y directions based on the surface's size.
+    It then iteratively creates new surfaces for each tile by using the 'pygame.Surface' and 'blit' methods,
+    appending them to the 'cut_tiles' list. The resulting list contains the cut tile-sized surfaces,
+    which is then returned.
     """
     path = create_path_on_platform(path)
     surface = pygame.image.load(path).convert_alpha()

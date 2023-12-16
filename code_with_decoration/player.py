@@ -28,6 +28,7 @@ class Player(pygame.sprite.Sprite):
     - wave_value(self): Generates a sine wave value for controlling image alpha during invincibility.
     - update(self): Updates the player's state based on input, status, and animations.
     """
+
     def __init__(self, pos, surface, change_health):
         """
         Initializes a new Player object.

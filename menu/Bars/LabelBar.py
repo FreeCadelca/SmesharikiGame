@@ -16,6 +16,7 @@ Methods:
     update: Updates the labeled bar with the specified text and characteristics.
 """
 
+
 class LabelBar(DefaultBar):
     BAR_HEIGHT = 75
     BAR_WIDTH = 700

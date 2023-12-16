@@ -17,6 +17,7 @@ class ParticEffect(pygame.sprite.Sprite):
     - animate(self): Animates the particle effect.
     - update(self, x_shift): Updates the position and animation of the particle effect.
     """
+
     def __init__(self, pos, type):
         """
         Initializes a new ParticEffect instance.

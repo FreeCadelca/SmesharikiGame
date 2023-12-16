@@ -47,6 +47,7 @@ class Level:
     - player_setup(self, layout, change_health):
         Sets up the player and the goal based on the layout.
     """
+
     def __init__(self, current_level, surface,
                  create_overworld, change_coins, change_health, game_over_func, send_coins_to_database):
         """
